@@ -1,0 +1,12 @@
+{{ define "main" }}
+<div class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <h1 class="accent">{{ .Title }}</h1>
+        <p class="text-muted">{{ .Date.Format "January 2, 2006" }}</p>
+        <hr style="border-color: #30363d;">
+        <div class="post-content" style="font-size: 1.2em; line-height: 1.6;">
+            {{ .Content }}
+        </div>
+    </div>
+</div>
+{{ end }}

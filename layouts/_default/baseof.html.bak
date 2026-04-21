@@ -5,22 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ .Title }} | Jacob Turner</title>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="/css/style.default.css" rel="stylesheet">
     <style>
-        /* Force dark theme everywhere */
-        body, #all, #content, .bar, footer, section, .row { background-color: #0d1117 !important; color: #c9d1d9 !important; }
+        body, #all, #content, .bar, footer { background-color: #0d1117 !important; color: #c9d1d9 !important; }
         #top, .navbar, .navbar-default { background-color: #161b22 !important; border-bottom: 2px solid #00bcd4 !important; }
         h1, h2, h3, strong { color: #ffffff !important; }
         .accent { color: #00bcd4 !important; }
         .nav > li > a { color: #c9d1d9 !important; font-weight: bold; }
         .nav > li.active > a, .nav > li > a:hover { background: transparent !important; color: #00bcd4 !important; border-bottom: 2px solid #00bcd4; }
-        .box-simple { background: #1c2128; border: 1px solid #30363d; padding: 20px; border-radius: 8px; min-height: 220px; transition: 0.3s; }
-        .card-link { text-decoration: none !important; color: inherit !important; display: block; }
-        .card-link:hover .box-simple { border-color: #00bcd4; transform: translateY(-5px); background: #21262d; box-shadow: 0 4px 15px rgba(0, 188, 212, 0.2); }
-        /* Style for icons */
-        .social i { color: #00bcd4 !important; margin-left: 15px; transition: 0.3s; }
-        .social i:hover { color: #ffffff !important; transform: scale(1.1); }
+        .social i { color: #00bcd4; margin-left: 15px; transition: 0.3s; }
+        .social i:hover { color: #ffffff; transform: scale(1.1); }
         .post-item { border-bottom: 1px solid #30363d; padding-bottom: 20px; margin-bottom: 20px; }
     </style>
 </head>
@@ -29,8 +24,8 @@
         <header id="top">
             <div class="container">
                 <div class="row">
-                    <div class="col-xs-6" style="padding: 15px 0;">Jacob's Workshop // CachyOS</div>
-                    <div class="col-xs-6 text-right social" style="padding: 15px 0;">
+                    <div class="col-xs-6" style="padding: 10px 0;">Jacob's Workshop // CachyOS</div>
+                    <div class="col-xs-6 text-right social" style="padding: 10px 0;">
                         <a href="https://github.com/jacobdt23" target="_blank"><i class="fa-brands fa-2x fa-github"></i></a>
                         <a href="https://www.youtube.com/@JacobTurner-p1f9c" target="_blank"><i class="fa-brands fa-2x fa-youtube"></i></a>
                         <a href="https://www.youtube.com/@jacobturner25" target="_blank"><i class="fa-brands fa-2x fa-youtube"></i></a>

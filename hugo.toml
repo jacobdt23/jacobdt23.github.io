@@ -1,7 +1,6 @@
 baseURL = 'https://jacobdt23.github.io/'
 languageCode = 'en-us'
-title = "Jacob's Workshop"
-theme = "hugo-universal-theme"
+title = "Jacob's paracord and tech Workshop"
 
 # This ensures Hugo looks for your blog posts correctly
 [params]

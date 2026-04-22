@@ -1,40 +1,20 @@
 {{ define "main" }}
-<div class="text-center">
-    <h1>jacob's workshop</h1>
-    <p class="lead">Crafting custom weaves and exploring Linux on the Ryzen 7 7800X3D.</p>
-    <div class="row">
-        <a href="https://github.com/jacobdt23" target="_blank" class="card-link">
-            <div class="col-md-4">
-                <div class="box-simple">
-                    <div class="icon"><i class="fas fa-microchip fa-3x accent"></i></div>
-                    <h3>github</h3>
-                    <p>Build: <strong>7800X3D</strong> + <strong>RTX 5070</strong></p>
-                    <p>OS: <strong>CachyOS</strong></p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://www.youtube.com/@JacobTurner-p1f9c" target="_blank" class="card-link">
-            <div class="col-md-4">
-                <div class="box-simple">
-                    <div class="icon"><i class="fas fa-scroll fa-3x accent"></i></div>
-                    <h3>paracord youtube</h3>
-                    <p>Specializing in <strong>Bane's Cuff</strong> and Fishtails.</p>
-                    <p>Preferred Buckles: <strong>5/8"</strong></p>
-                </div>
-            </div>
-        </a>
-
-        <a href="https://www.youtube.com/@jacobturner25" target="_blank" class="card-link">
-            <div class="col-md-4">
-                <div class="box-simple">
-                    <div class="icon"><i class="fab fa-youtube fa-3x accent"></i></div>
-                    <h3>tech youtube</h3>
-                    <p>Linux <strong>tutorials</strong> and hardware showcases.</p>
-                    <p>Focus: <strong>Short Form</strong> content.</p>
-                </div>
-            </div>
-        </a>
+<div class="row">
+    <div class="col-md-9">
+        <h1 class="accent">workshop log</h1>
+        <p class="lead">Documenting builds, weaves, and Linux configurations.</p>
+        <hr style="border-color: #30363d;">
+        
+        {{ range .Paginator.Pages }}
+        <div class="post-item" style="margin-bottom: 40px;">
+            <h2><a href="{{ .Permalink }}" style="color: #ffffff;">{{ .Title }}</a></h2>
+            <p class="text-muted">{{ .Date.Format "January 2, 2006" }}</p>
+            <p>{{ .Summary }}</p>
+            <a href="{{ .Permalink }}" style="color: #00bcd4; font-weight: bold;">Read Entry →</a>
+        </div>
+        {{ end }}
+        
+        {{ template "_internal/pagination.html" . }}
     </div>
 </div>
 {{ end }}

@@ -1,6 +1,6 @@
 baseURL = 'https://jacobdt23.github.io/'
 languageCode = 'en-us'
-title = "Jacob's paracord and tech Workshop"
+title = "Jacob's Workshop // CachyOS"
 
 # This ensures Hugo looks for your blog posts correctly
 [params]

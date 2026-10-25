@@ -26,13 +26,17 @@
   <h2>My channels</h2>
   <div class="grid">
     {{ range hugo.Data.channels }}
-      <a class="card channel" href="{{ .page | relURL }}">
+      <div class="card channel">
         <div class="card-body">
-          <h3>{{ .name }}</h3>
+          <h3><a href="{{ .page | relURL }}">{{ .name }}</a></h3>
           <p class="meta">{{ .handle }}{{ with .subscribers }} · {{ . }} subscribers{{ end }}</p>
           <p>{{ .description }}</p>
+          <div class="card-actions">
+            <a class="btn" href="{{ .url }}?sub_confirmation=1" target="_blank" rel="noopener">Open on YouTube</a>
+            <a class="btn btn-ghost" href="{{ .page | relURL }}">View videos</a>
+          </div>
         </div>
-      </a>
+      </div>
     {{ end }}
   </div>
 </section>

@@ -148,3 +148,9 @@ pre code { background: none; padding: 0; }
   content: ""; display: block; width: 72px; height: 5px; border-radius: 3px;
   background: linear-gradient(90deg, var(--olive), var(--accent)); margin: .7rem auto 0;
 }
+
+/* channel card buttons */
+.card-actions { display: flex; flex-wrap: wrap; gap: .6rem; margin-top: 1rem; }
+.card-actions .btn { padding: .45rem 1rem; font-size: .92rem; }
+.card.channel h3 a { color: var(--text); }
+.card.channel:hover { transform: none; box-shadow: none; }

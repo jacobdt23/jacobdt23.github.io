@@ -29,7 +29,7 @@ title = "Jacob Turner"
     weight = 5
   [[menus.main]]
     name = "Where to find me"
-    pageRef = "/contact"
+    pageRef = "/where-to-find-me"
     weight = 6
 
 [taxonomies]

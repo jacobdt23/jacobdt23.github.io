@@ -3,7 +3,7 @@ title: "Banes cuff showcase"
 date: 2026-08-18
 youtube_id: "_IDmzjkFfV4"
 channel: "Jacob's Paracord Corner"
-tags: ["showcase", "cuffs", "bracelets"]
+tags: ["paracord", "showcase", "cuffs", "bracelets"]
 summary: "Banes cuff showcase — a paracord video from Jacob's Paracord Corner."
 ---
 

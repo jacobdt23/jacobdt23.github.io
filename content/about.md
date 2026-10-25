@@ -2,14 +2,16 @@
 title: "About"
 ---
 
-Hi, I'm **Jacob Turner**, and I make paracord videos on YouTube.
+Hi, I'm **Jacob Turner**. I run two YouTube channels.
 
-I show how to tie knots, braid projects and build useful gear out of paracord, step by step, so you can make them yourself.
+## Jacob's Paracord Corner
 
-## What I make
+Paracord bracelet tutorials, knots and showcases, step by step so you can make them yourself.
 
-- Paracord tutorials and how-tos
-- Knots and weaves
-- Gear builds like bracelets, lanyards, keychains and more
+[Subscribe](https://www.youtube.com/@JacobTurner-p1f9c?sub_confirmation=1)
 
-[Subscribe on YouTube](https://www.youtube.com/@JacobTurner-p1f9c)
+## Jacob Turner - Tech
+
+Windows and Linux content, plus PC hardware. My PC has a Ryzen 7 7800X3D and an RTX 5070, and I stream every once in a while.
+
+[Subscribe](https://www.youtube.com/@jacobturner25?sub_confirmation=1)

@@ -3,7 +3,7 @@ title: "Diamond knot paracord bracelet core"
 date: 2026-08-11
 youtube_id: "XgvPBM4NqwQ"
 channel: "Jacob's Paracord Corner"
-tags: ["diamond knot", "cores", "bracelets"]
+tags: ["paracord", "diamond knot", "cores", "bracelets"]
 summary: "Diamond knot paracord bracelet core — a paracord video from Jacob's Paracord Corner."
 ---
 

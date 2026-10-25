@@ -3,7 +3,7 @@ title: "Corba knot and loop core"
 date: 2026-09-09
 youtube_id: "oVE7Hs7kOlA"
 channel: "Jacob's Paracord Corner"
-tags: ["cobra knot", "cores"]
+tags: ["paracord", "cobra knot", "cores"]
 summary: "Corba knot and loop core — a paracord video from Jacob's Paracord Corner."
 ---
 

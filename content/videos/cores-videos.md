@@ -3,7 +3,7 @@ title: "cores videos"
 date: 2026-09-29
 youtube_id: "WfK_SwuuzOA"
 channel: "Jacob's Paracord Corner"
-tags: ["cores"]
+tags: ["paracord", "cores"]
 summary: "cores videos — a paracord video from Jacob's Paracord Corner."
 ---
 

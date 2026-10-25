@@ -1,9 +1,9 @@
 baseURL = "http://localhost:1313/"
 locale = "en-us"
-title = "Jacob's Paracord Corner"
+title = "Jacob Turner"
 
 [params]
-  description = "Paracord projects, knots and builds. Tutorials and videos from my YouTube channel."
+  description = "Paracord tutorials and tech videos: Linux, Windows and PC hardware. Two YouTube channels, one place."
   author = "Jacob Turner"
 
 [menus]

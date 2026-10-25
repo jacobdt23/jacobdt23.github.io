@@ -3,8 +3,8 @@
   <h1>{{ site.Title }}</h1>
   <p class="lead">{{ site.Params.description }}</p>
   <div class="hero-actions">
-    {{ with index hugo.Data.channels 0 }}
-      <a class="btn" href="{{ .url }}" target="_blank" rel="noopener">Subscribe on YouTube</a>
+    {{ range $i, $c := hugo.Data.channels }}
+      <a class="btn{{ if gt $i 0 }} btn-ghost{{ end }}" href="{{ $c.url }}" target="_blank" rel="noopener">Subscribe: {{ $c.name }}</a>
     {{ end }}
     <a class="btn btn-ghost" href="{{ "videos/" | relURL }}">Browse videos</a>
   </div>

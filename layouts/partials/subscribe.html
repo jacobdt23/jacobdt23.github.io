@@ -1,7 +1,9 @@
-{{ with index hugo.Data.channels 0 }}
 <section class="subscribe">
-  <h2>Enjoy the paracord builds?</h2>
-  <p>New bracelet tutorials and showcases are posted regularly. Subscribe so you don't miss one.</p>
-  <a class="btn" href="{{ .url }}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+  <h2>Enjoy the videos?</h2>
+  <p>New videos are posted regularly. Subscribe so you don't miss one.</p>
+  <div class="hero-actions">
+    {{ range hugo.Data.channels }}
+      <a class="btn" href="{{ .url }}?sub_confirmation=1" target="_blank" rel="noopener">{{ .name }}</a>
+    {{ end }}
+  </div>
 </section>
-{{ end }}

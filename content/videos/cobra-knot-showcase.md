@@ -3,7 +3,7 @@ title: "Cobra knot showcase"
 date: 2026-08-17
 youtube_id: "dUTrz2mpJHc"
 channel: "Jacob's Paracord Corner"
-tags: ["cobra knot", "showcase"]
+tags: ["paracord", "cobra knot", "showcase"]
 summary: "Cobra knot showcase — a paracord video from Jacob's Paracord Corner."
 ---
 

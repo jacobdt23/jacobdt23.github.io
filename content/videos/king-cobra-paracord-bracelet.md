@@ -3,7 +3,7 @@ title: "King cobra paracord bracelet"
 date: 2026-09-02
 youtube_id: "UO-CmHPDNag"
 channel: "Jacob's Paracord Corner"
-tags: ["cobra knot", "king cobra", "bracelets"]
+tags: ["paracord", "cobra knot", "king cobra", "bracelets"]
 summary: "King cobra paracord bracelet — a paracord video from Jacob's Paracord Corner."
 ---
 

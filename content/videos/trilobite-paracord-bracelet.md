@@ -3,7 +3,7 @@ title: "Trilobite paracord bracelet"
 date: 2026-08-20
 youtube_id: "qDrHVDUWkH0"
 channel: "Jacob's Paracord Corner"
-tags: ["trilobite", "bracelets"]
+tags: ["paracord", "trilobite", "bracelets"]
 summary: "Trilobite paracord bracelet — a paracord video from Jacob's Paracord Corner."
 ---
 

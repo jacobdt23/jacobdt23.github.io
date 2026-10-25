@@ -1,0 +1,39 @@
+{{ define "main" }}
+<section class="hero">
+  <h1>{{ site.Title }}</h1>
+  <p class="lead">{{ site.Params.description }}</p>
+  <div class="hero-actions">
+    {{ with index hugo.Data.channels 0 }}
+      <a class="btn" href="{{ .url }}" target="_blank" rel="noopener">Subscribe on YouTube</a>
+    {{ end }}
+    <a class="btn btn-ghost" href="{{ "videos/" | relURL }}">Browse videos</a>
+  </div>
+</section>
+
+<section>
+  <h2>Latest videos</h2>
+  <div class="grid">
+    {{ range first 6 (where site.RegularPages "Section" "videos").ByDate.Reverse }}
+      {{ partial "video-card.html" . }}
+    {{ else }}
+      <p>No videos yet.</p>
+    {{ end }}
+  </div>
+  <p><a href="{{ "videos/" | relURL }}">See all videos →</a></p>
+</section>
+
+<section>
+  <h2>My channels</h2>
+  <div class="grid">
+    {{ range hugo.Data.channels }}
+      <a class="card channel" href="{{ .url }}" target="_blank" rel="noopener">
+        <div class="card-body">
+          <h3>{{ .name }}</h3>
+          <p class="meta">{{ .handle }}{{ with .subscribers }} · {{ . }} subscribers{{ end }}</p>
+          <p>{{ .description }}</p>
+        </div>
+      </a>
+    {{ end }}
+  </div>
+</section>
+{{ end }}

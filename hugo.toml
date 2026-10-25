@@ -1,0 +1,35 @@
+baseURL = "http://localhost:1313/"
+locale = "en-us"
+title = "Jacob's Paracord Corner"
+
+[params]
+  description = "Paracord projects, knots and builds. Tutorials and videos from my YouTube channel."
+  author = "Jacob Turner"
+
+[menus]
+  [[menus.main]]
+    name = "Home"
+    pageRef = "/"
+    weight = 1
+  [[menus.main]]
+    name = "Videos"
+    pageRef = "/videos"
+    weight = 2
+  [[menus.main]]
+    name = "Channels"
+    pageRef = "/channels"
+    weight = 3
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 4
+  [[menus.main]]
+    name = "Contact"
+    pageRef = "/contact"
+    weight = 5
+
+[taxonomies]
+  tag = "tags"
+
+[outputs]
+  home = ["HTML", "RSS"]

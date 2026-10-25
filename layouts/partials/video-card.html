@@ -1,0 +1,14 @@
+<a class="card" href="{{ .RelPermalink }}">
+  {{ with .Params.youtube_id }}
+    <img class="thumb" loading="lazy" src="https://i.ytimg.com/vi/{{ . }}/hqdefault.jpg" alt="Thumbnail for {{ $.Title }}">
+  {{ else }}
+    <div class="thumb thumb-empty">No thumbnail</div>
+  {{ end }}
+  <div class="card-body">
+    <h3>{{ .Title }}</h3>
+    <p class="meta">
+      {{ with .Params.channel }}{{ . }} · {{ end }}{{ .Date.Format "Jan 2, 2006" }}
+    </p>
+    {{ with .Params.summary }}<p>{{ . }}</p>{{ end }}
+  </div>
+</a>

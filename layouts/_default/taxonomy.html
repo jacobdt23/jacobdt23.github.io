@@ -1,0 +1,8 @@
+{{ define "main" }}
+<h1>Tag: {{ .Title }}</h1>
+<div class="grid">
+  {{ range .Pages.ByDate.Reverse }}
+    {{ partial "video-card.html" . }}
+  {{ end }}
+</div>
+{{ end }}

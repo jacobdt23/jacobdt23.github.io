@@ -1,5 +1,5 @@
 ---
-title: "Contact"
+title: "Where to find me"
 ---
 
 The best way to reach me is on YouTube. Leave a comment on any video, or visit a channel's About tab:

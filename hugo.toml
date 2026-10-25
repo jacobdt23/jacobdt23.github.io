@@ -28,7 +28,7 @@ title = "Jacob Turner"
     pageRef = "/about"
     weight = 5
   [[menus.main]]
-    name = "Contact"
+    name = "Where to find me"
     pageRef = "/contact"
     weight = 6
 

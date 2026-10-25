@@ -26,7 +26,7 @@
   <h2>My channels</h2>
   <div class="grid">
     {{ range hugo.Data.channels }}
-      <a class="card channel" href="{{ .url }}" target="_blank" rel="noopener">
+      <a class="card channel" href="{{ .page | relURL }}">
         <div class="card-body">
           <h3>{{ .name }}</h3>
           <p class="meta">{{ .handle }}{{ with .subscribers }} · {{ . }} subscribers{{ end }}</p>

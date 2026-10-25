@@ -1,10 +1,12 @@
 - name: Jacob's Paracord Corner
   handle: "@JacobTurner-p1f9c"
   url: "https://www.youtube.com/@JacobTurner-p1f9c"
+  page: "paracord/"
   description: "Paracord bracelet tutorials, knots and showcases. Watch how I make them step by step."
   subscribers: ""
 - name: Jacob Turner - Tech
   handle: "@jacobturner25"
   url: "https://www.youtube.com/@jacobturner25"
+  page: "tech/"
   description: "Windows and Linux content, plus PC hardware like my Ryzen 7 7800X3D and RTX 5070 build. I stream every once in a while."
   subscribers: ""

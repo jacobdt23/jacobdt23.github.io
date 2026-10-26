@@ -287,8 +287,18 @@
       });
     });
 
-    // ScrollSpy: highlight active link as user scrolls
+    // ScrollSpy & Scroll Progress Bar: highlight active link as user scrolls
+    var progressBar = document.getElementById("toc-progress-bar");
+
     function updateScrollSpy() {
+      // 1. Update Scroll Progress Bar
+      if (progressBar) {
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var progressPercent = docHeight > 0 ? Math.min(100, Math.max(0, (window.scrollY / docHeight) * 100)) : 0;
+        progressBar.style.width = progressPercent.toFixed(1) + "%";
+      }
+
+      // 2. Update Active Section Highlight
       var scrollPos = window.scrollY + 160;
       var currentId = "";
 

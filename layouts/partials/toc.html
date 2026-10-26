@@ -5,6 +5,38 @@
       <span class="toc-title">Table of Contents</span>
     </div>
     <nav class="toc-nav" id="toc-nav">
+      <ul class="toc-list">
+        {{ if .IsHome }}
+          <li><a href="#paracord-calculator-tool">🪢 Paracord Calculator</a></li>
+          <li><a href="#latest-videos">🎬 Latest Videos</a></li>
+          <li><a href="#my-channels">📺 YouTube Channels</a></li>
+        {{ else if eq .RelPermalink "/videos/" }}
+          <li><a href="#search-and-filters">🔍 Search & Filters</a></li>
+          <li><a href="#video-cards-grid">📹 Video Catalog</a></li>
+          <li><a href="#browse-by-tag">🏷️ Browse by Tag</a></li>
+        {{ else if eq .RelPermalink "/calculator/" }}
+          <li><a href="#measurements">📏 1. Measurements & Style</a></li>
+          <li><a href="#results">✂️ 2. Recommended Cuts</a></li>
+          <li><a href="#crafting-tips">💡 Pro Crafting Tips</a></li>
+        {{ else if eq .RelPermalink "/gear/" }}
+          <li><a href="#pc-rig">💻 PC Rig Specs (Fedora)</a></li>
+          <li><a href="#paracord-workshop">🪢 Paracord Workshop</a></li>
+        {{ else if eq .RelPermalink "/about/" }}
+          <li><a href="#jacobs-paracord-corner">🪢 Paracord Corner</a></li>
+          <li><a href="#jacob-turner---tech">💻 Jacob Turner - Tech</a></li>
+        {{ else if eq .RelPermalink "/where-to-find-me/" }}
+          <li><a href="#youtube-channels">📺 YouTube Channels</a></li>
+          <li><a href="#comments--inquiries">💬 Comments & Inquiries</a></li>
+        {{ else if and (eq .Section "videos") .IsPage }}
+          <li><a href="#video-player">▶️ Watch Video</a></li>
+          <li><a href="#video-description">📝 About This Video</a></li>
+          <li><a href="#related-videos">🎯 Related Videos</a></li>
+        {{ else }}
+          {{ with .TableOfContents }}
+            {{ . }}
+          {{ end }}
+        {{ end }}
+      </ul>
       <ul id="dynamic-toc-list" class="dynamic-toc-list"></ul>
     </nav>
     <div class="toc-footer">

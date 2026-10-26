@@ -248,14 +248,15 @@
   // 6. Right Side Panel: Table of Contents & ScrollSpy
   var tocSidebar = document.getElementById("toc-sidebar");
   var pageContent = document.getElementById("page-content");
-  var dynamicList = document.getElementById("dynamic-toc-list");
 
   if (tocSidebar && pageContent) {
-    var headings = pageContent.querySelectorAll("h2, h3");
+    var staticLinks = tocSidebar.querySelectorAll(".toc-list a");
+    var dynamicList = document.getElementById("dynamic-toc-list");
 
-    // Populate TOC dynamically from headings on page
-    if (dynamicList && headings.length > 0) {
-      headings.forEach(function (heading, idx) {
+    // If static links were not defined for this page, auto-discover headings
+    if (staticLinks.length === 0 && dynamicList) {
+      var headings = pageContent.querySelectorAll("h2, h3");
+      headings.forEach(function (heading) {
         if (!heading.id) {
           heading.id = "sec-" + (heading.textContent || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
         }
@@ -269,54 +270,48 @@
       });
     }
 
-    var tocLinks = tocSidebar.querySelectorAll("nav a");
+    var allTocLinks = tocSidebar.querySelectorAll("nav a");
 
-    // Only hide if the page has literally 0 headings
-    if (tocLinks.length === 0) {
-      tocSidebar.style.display = "none";
-      var contentGrid = tocSidebar.closest(".content-with-sidebar");
-      if (contentGrid) contentGrid.classList.add("no-sidebar");
-    } else {
-      tocSidebar.style.display = "block";
-
-      // Smooth click-to-scroll
-      tocLinks.forEach(function (link) {
-        link.addEventListener("click", function (e) {
-          var targetId = link.getAttribute("href");
-          if (targetId && targetId.startsWith("#")) {
-            var targetEl = document.querySelector(targetId);
-            if (targetEl) {
-              e.preventDefault();
-              targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
-              history.pushState(null, null, targetId);
-            }
+    // Smooth click-to-scroll
+    allTocLinks.forEach(function (link) {
+      link.addEventListener("click", function (e) {
+        var targetId = link.getAttribute("href");
+        if (targetId && targetId.startsWith("#")) {
+          var targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+            history.pushState(null, null, targetId);
           }
-        });
+        }
+      });
+    });
+
+    // ScrollSpy: highlight active link as user scrolls
+    function updateScrollSpy() {
+      var scrollPos = window.scrollY + 160;
+      var currentId = "";
+
+      allTocLinks.forEach(function (link) {
+        var targetId = link.getAttribute("href");
+        if (targetId && targetId.startsWith("#")) {
+          var targetEl = document.querySelector(targetId);
+          if (targetEl && targetEl.offsetTop <= scrollPos) {
+            currentId = targetId;
+          }
+        }
       });
 
-      // ScrollSpy: highlight active heading as user scrolls
-      function updateScrollSpy() {
-        var scrollPos = window.scrollY + 140;
-        var currentId = "";
-
-        headings.forEach(function (heading) {
-          if (heading.offsetTop <= scrollPos) {
-            currentId = heading.id;
-          }
-        });
-
-        tocLinks.forEach(function (link) {
-          var href = link.getAttribute("href");
-          if (href === "#" + currentId) {
-            link.classList.add("active");
-          } else {
-            link.classList.remove("active");
-          }
-        });
-      }
-
-      window.addEventListener("scroll", updateScrollSpy, { passive: true });
-      updateScrollSpy();
+      allTocLinks.forEach(function (link) {
+        if (link.getAttribute("href") === currentId) {
+          link.classList.add("active");
+        } else {
+          link.classList.remove("active");
+        }
+      });
     }
+
+    window.addEventListener("scroll", updateScrollSpy, { passive: true });
+    updateScrollSpy();
   }
 })();

@@ -232,7 +232,7 @@
   }
 
   var theaterBtn = document.getElementById("theater-toggle-btn");
-  var playerWrap = document.getElementById("video-player-wrap");
+  var playerWrap = document.getElementById("video-player");
   if (theaterBtn && playerWrap) {
     theaterBtn.addEventListener("click", function () {
       playerWrap.classList.toggle("theater-mode");
@@ -243,5 +243,79 @@
         theaterBtn.innerHTML = "<span>⛶ Theater Mode</span>";
       }
     });
+  }
+
+  // 6. Right Side Panel: Table of Contents & ScrollSpy
+  var tocSidebar = document.getElementById("toc-sidebar");
+  var pageContent = document.getElementById("page-content");
+  var dynamicList = document.getElementById("dynamic-toc-list");
+
+  if (tocSidebar && pageContent) {
+    var headings = pageContent.querySelectorAll("h2, h3");
+    var tocLinks = [];
+
+    // If Hugo didn't populate markdown TableOfContents, build it dynamically
+    if (dynamicList && headings.length >= 2) {
+      headings.forEach(function (heading, idx) {
+        if (!heading.id) {
+          heading.id = "sec-" + (heading.textContent || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
+        }
+        var li = document.createElement("li");
+        li.className = "toc-item toc-" + heading.tagName.toLowerCase();
+        var a = document.createElement("a");
+        a.href = "#" + heading.id;
+        a.textContent = heading.textContent.replace(/^[0-9.]+\s*/, ""); // Clean numbered prefixes
+        li.appendChild(a);
+        dynamicList.appendChild(li);
+      });
+    }
+
+    tocLinks = tocSidebar.querySelectorAll("nav a");
+
+    // Hide TOC if there are fewer than 2 headings on this page
+    if (tocLinks.length < 2) {
+      tocSidebar.style.display = "none";
+      var contentGrid = tocSidebar.closest(".content-with-sidebar");
+      if (contentGrid) contentGrid.classList.add("no-sidebar");
+    } else {
+      // Smooth click-to-scroll
+      tocLinks.forEach(function (link) {
+        link.addEventListener("click", function (e) {
+          var targetId = link.getAttribute("href");
+          if (targetId && targetId.startsWith("#")) {
+            var targetEl = document.querySelector(targetId);
+            if (targetEl) {
+              e.preventDefault();
+              targetEl.scrollIntoView({ behavior: "smooth", block: "start" });
+              history.pushState(null, null, targetId);
+            }
+          }
+        });
+      });
+
+      // ScrollSpy: highlight active heading as user scrolls
+      function updateScrollSpy() {
+        var scrollPos = window.scrollY + 120;
+        var currentId = "";
+
+        headings.forEach(function (heading) {
+          if (heading.offsetTop <= scrollPos) {
+            currentId = heading.id;
+          }
+        });
+
+        tocLinks.forEach(function (link) {
+          var href = link.getAttribute("href");
+          if (href === "#" + currentId) {
+            link.classList.add("active");
+          } else {
+            link.classList.remove("active");
+          }
+        });
+      }
+
+      window.addEventListener("scroll", updateScrollSpy, { passive: true });
+      updateScrollSpy();
+    }
   }
 })();

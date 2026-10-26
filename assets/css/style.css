@@ -270,6 +270,96 @@ pre code { background: none; padding: 0; }
 .chip:hover { border-color: var(--olive); text-decoration: none; }
 .chip span { color: var(--muted); }
 
+/* Content Layout with Right Table of Contents Sidebar */
+.content-with-sidebar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 250px;
+  gap: 2.5rem;
+  align-items: start;
+}
+.content-with-sidebar.no-sidebar {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.toc-sidebar {
+  position: sticky;
+  top: 86px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+  padding: 1.1rem 1.2rem;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-size: .88rem;
+}
+.toc-header {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: .78rem;
+  letter-spacing: .06em;
+  color: var(--muted);
+  margin-bottom: .8rem;
+  padding-bottom: .5rem;
+  border-bottom: 1px solid var(--border);
+}
+.toc-nav ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.toc-nav ul ul {
+  padding-left: .85rem;
+  margin-top: .3rem;
+}
+.toc-nav li {
+  margin-bottom: .45rem;
+}
+.toc-nav li.toc-h3 {
+  padding-left: .8rem;
+  font-size: .84rem;
+}
+.toc-nav a {
+  color: var(--muted);
+  display: block;
+  line-height: 1.4;
+  padding: .2rem 0 .2rem .6rem;
+  border-left: 2px solid transparent;
+  transition: all .15s ease;
+}
+.toc-nav a:hover,
+.toc-nav a.active {
+  color: var(--accent);
+  border-left-color: var(--accent);
+  font-weight: 600;
+  text-decoration: none;
+}
+.toc-footer {
+  margin-top: 1rem;
+  padding-top: .7rem;
+  border-top: 1px solid var(--border);
+}
+.back-to-top-link {
+  font-size: .8rem;
+  color: var(--muted);
+  font-weight: 600;
+}
+.back-to-top-link:hover {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+@media (max-width: 960px) {
+  .content-with-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .toc-sidebar {
+    display: none;
+  }
+}
+
 /* Subscribe Banner */
 .subscribe {
   margin-top: 4rem; padding: 2.2rem 1.5rem; text-align: center;

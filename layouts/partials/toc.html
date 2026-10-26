@@ -1,0 +1,18 @@
+<aside class="toc-sidebar" id="toc-sidebar" aria-label="Table of Contents">
+  <div class="toc-sticky">
+    <div class="toc-header">
+      <span class="toc-icon">📑</span>
+      <span class="toc-title">On this page</span>
+    </div>
+    <nav class="toc-nav" id="toc-nav">
+      {{ if gt (len .TableOfContents) 30 }}
+        {{ .TableOfContents }}
+      {{ else }}
+        <ul id="dynamic-toc-list"></ul>
+      {{ end }}
+    </nav>
+    <div class="toc-footer">
+      <a href="#top" class="back-to-top-link" id="back-to-top">↑ Back to top</a>
+    </div>
+  </div>
+</aside>

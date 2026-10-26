@@ -1,71 +1,76 @@
 {{ define "main" }}
-<article class="prose video-single-article">
-  <div class="video-meta-top">
-    {{ with .Params.channel }}
-      <span class="channel-pill">{{ . }}</span>
-    {{ end }}
-    <span class="publish-date">Published on {{ .Date.Format "January 2, 2006" }}</span>
-  </div>
+<div class="content-with-sidebar">
+  <article class="prose video-single-article" id="page-content">
+    <div class="video-meta-top">
+      {{ with .Params.channel }}
+        <span class="channel-pill">{{ . }}</span>
+      {{ end }}
+      <span class="publish-date">Published on {{ .Date.Format "January 2, 2006" }}</span>
+    </div>
 
-  <h1 class="video-page-title">{{ .Title }}</h1>
+    <h1 class="video-page-title">{{ .Title }}</h1>
 
-  {{ with .Params.youtube_id }}
-    <div class="video-embed-container" id="video-player-wrap">
-      <div class="video-embed">
-        <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" 
-          title="{{ $.Title }}" 
-          loading="lazy" 
-          allowfullscreen
-          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
-        </iframe>
+    {{ with .Params.youtube_id }}
+      <div class="video-embed-container" id="video-player">
+        <div class="video-embed">
+          <iframe src="https://www.youtube-nocookie.com/embed/{{ . }}" 
+            title="{{ $.Title }}" 
+            loading="lazy" 
+            allowfullscreen
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture">
+          </iframe>
+        </div>
       </div>
+
+      <!-- Video Action Toolbar -->
+      <div class="video-action-bar">
+        <a class="btn btn-primary" href="https://www.youtube.com/watch?v={{ . }}" target="_blank" rel="noopener">
+          <span>▶ Watch on YouTube</span>
+        </a>
+        <button type="button" class="btn btn-ghost" id="copy-video-link-btn" data-url="{{ $.Permalink }}">
+          <span>📋 Share / Copy Link</span>
+        </button>
+        <button type="button" class="btn btn-ghost" id="theater-toggle-btn">
+          <span>⛶ Theater Mode</span>
+        </button>
+      </div>
+    {{ end }}
+
+    <div class="video-body-content" id="video-description">
+      <h2>About This Video</h2>
+      {{ .Content }}
     </div>
 
-    <!-- Video Action Toolbar -->
-    <div class="video-action-bar">
-      <a class="btn btn-primary" href="https://www.youtube.com/watch?v={{ . }}" target="_blank" rel="noopener">
-        <span>▶ Watch on YouTube</span>
-      </a>
-      <button type="button" class="btn btn-ghost" id="copy-video-link-btn" data-url="{{ $.Permalink }}">
-        <span>📋 Share / Copy Link</span>
-      </button>
-      <button type="button" class="btn btn-ghost" id="theater-toggle-btn">
-        <span>⛶ Theater Mode</span>
-      </button>
-    </div>
-  {{ end }}
-
-  <div class="video-body-content">
-    {{ .Content }}
-  </div>
-
-  {{ with .Params.tags }}
-    <div class="tags-section">
-      <span class="tags-label">Tags:</span>
-      {{ range . }}
-        <a class="tag" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">#{{ . }}</a>
-      {{ end }}
-    </div>
-  {{ end }}
-
-  <!-- Related Videos Recommendation -->
-  <section class="related-videos-section">
-    <h2>More Videos You Might Like</h2>
-    <div class="grid">
-      {{ $current := . }}
-      {{ $related := where (where site.RegularPages "Section" "videos") "Permalink" "ne" $current.Permalink }}
-      {{ with $current.Params.channel }}
-        {{ $chanRelated := where $related "Params.channel" . }}
-        {{ if gt (len $chanRelated) 0 }}
-          {{ $related = $chanRelated }}
+    {{ with .Params.tags }}
+      <div class="tags-section">
+        <span class="tags-label">Tags:</span>
+        {{ range . }}
+          <a class="tag" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">#{{ . }}</a>
         {{ end }}
-      {{ end }}
-      {{ range first 3 $related }}
-        {{ partial "video-card.html" . }}
-      {{ end }}
-    </div>
-  </section>
-</article>
+      </div>
+    {{ end }}
+
+    <!-- Related Videos Recommendation -->
+    <section class="related-videos-section" id="related-videos">
+      <h2>More Videos You Might Like</h2>
+      <div class="grid">
+        {{ $current := . }}
+        {{ $related := where (where site.RegularPages "Section" "videos") "Permalink" "ne" $current.Permalink }}
+        {{ with $current.Params.channel }}
+          {{ $chanRelated := where $related "Params.channel" . }}
+          {{ if gt (len $chanRelated) 0 }}
+            {{ $related = $chanRelated }}
+          {{ end }}
+        {{ end }}
+        {{ range first 3 $related }}
+          {{ partial "video-card.html" . }}
+        {{ end }}
+      </div>
+    </section>
+  </article>
+
+  {{ partial "toc.html" . }}
+</div>
 
 <!-- Schema.org VideoObject Structured Data for SEO -->
 {{ with .Params.youtube_id }}

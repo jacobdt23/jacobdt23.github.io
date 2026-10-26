@@ -1,0 +1,128 @@
+{{ define "main" }}
+<div class="calculator-container">
+  <div class="calc-header text-center">
+    <span class="badge badge-accent">Interactive Tool</span>
+    <h1>Paracord Bracelet Calculator</h1>
+    <p class="lead">Determine the exact cord length needed for your bracelet before you cut!</p>
+  </div>
+
+  <div class="calc-grid">
+    <!-- Calculator Controls Form -->
+    <div class="card calc-card">
+      <div class="card-body">
+        <h3>1. Your Measurements & Style</h3>
+        
+        <div class="form-group">
+          <label for="calc-units">Measurement Units</label>
+          <div class="pill-toggle" id="unit-toggles">
+            <button type="button" class="btn btn-pill active" data-unit="inches">Inches (in)</button>
+            <button type="button" class="btn btn-pill btn-ghost" data-unit="cm">Centimeters (cm)</button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="wrist-size">
+            Wrist Circumference: <strong id="wrist-val-display">7.0"</strong>
+          </label>
+          <input type="range" id="wrist-slider" min="5" max="10" step="0.25" value="7.0" class="slider">
+          <div class="slider-ticks">
+            <span>5.0" (Child / Small)</span>
+            <span>7.0" (Average)</span>
+            <span>10.0" (Large)</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="weave-style">Weave Style</label>
+          <select id="weave-style" class="form-select">
+            <option value="cobra" data-rate="12" data-tutorial="/videos/cobra-knot-and-loop-bracelet/">Standard Cobra Knot (1 ft / in)</option>
+            <option value="king-cobra" data-rate="22" data-tutorial="/videos/king-cobra-paracord-bracelet/">King Cobra (Double Weave ~ 1.8 ft / in)</option>
+            <option value="trilobite" data-rate="15" data-tutorial="/videos/trilobite-paracord-bracelet/">Trilobite / Fishtail (~ 1.25 ft / in)</option>
+            <option value="sanctified" data-rate="18" data-tutorial="/videos/sanctified-paracord-bracelet-showcase/">Sanctified Weave (~ 1.5 ft / in)</option>
+            <option value="knot-loop" data-rate="13" data-tutorial="/videos/how-to-make-a-knot-and-loop-cobra-knot-bracelet/">Knot & Loop Cobra</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="clasp-type">Clasp / Closure Type</label>
+          <select id="clasp-type" class="form-select">
+            <option value="buckle" data-extra="1.0">Standard Side Release Buckle (+1")</option>
+            <option value="loop" data-extra="2.0">Diamond Knot & Loop (Soft Shackle) (+2")</option>
+            <option value="shackle" data-extra="1.25">Adjustable Metal Shackle (+1.25")</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="color-mode">Color Scheme</label>
+          <select id="color-mode" class="form-select">
+            <option value="single">Single Solid Color</option>
+            <option value="two-tone">Two-Tone (Joined with Manny Method / Melt)</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Results Dashboard -->
+    <div class="card calc-result-card">
+      <div class="card-body">
+        <h3>2. Recommended Cord Cuts</h3>
+        
+        <div class="result-highlight">
+          <span class="result-label">Total 550 Paracord Needed</span>
+          <div class="result-number" id="res-total">8 ft 6 in</div>
+          <div class="result-sub" id="res-metric">(approx. 2.59 m)</div>
+        </div>
+
+        <div class="result-details" id="color-split-box" style="display:none;">
+          <div class="detail-row">
+            <span>Color A (Outer / Weave):</span>
+            <strong id="res-color-a">4 ft 3 in</strong>
+          </div>
+          <div class="detail-row">
+            <span>Color B (Inner / Core):</span>
+            <strong id="res-color-b">4 ft 3 in</strong>
+          </div>
+        </div>
+
+        <div class="detail-breakdown">
+          <div class="detail-row">
+            <span>Core Strand Length:</span>
+            <span id="res-core">24 in (2.0 ft)</span>
+          </div>
+          <div class="detail-row">
+            <span>Safety Buffer (for tucking & melting):</span>
+            <span>+12 in (Included)</span>
+          </div>
+        </div>
+
+        <div class="tutorial-recommendation">
+          <h4>Watch the Step-by-Step Tutorial:</h4>
+          <p id="tutorial-title">Learn how to make this bracelet in Jacob's video tutorial.</p>
+          <a href="/videos/cobra-knot-and-loop-bracelet/" id="tutorial-btn" class="btn btn-primary btn-block">Watch Tutorial Video →</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Helpful Crafting Tips Section -->
+  <div class="card tips-card">
+    <div class="card-body">
+      <h3>Pro Paracord Tips from Jacob</h3>
+      <div class="tips-grid">
+        <div class="tip-item">
+          <strong>📏 Measure Snug, Not Tight:</strong>
+          <p>Wrap a piece of string or tape around your wrist bone without slack. Mark where it overlaps and measure flat against a ruler.</p>
+        </div>
+        <div class="tip-item">
+          <strong>🔥 The 1 Foot Rule:</strong>
+          <p>For standard Cobra weaves, the classic formula is 1 foot of cord per 1 inch of wrist size, plus 1 foot extra for finishing ends.</p>
+        </div>
+        <div class="tip-item">
+          <strong>✂️ Pre-shrinking Paracord:</strong>
+          <p>Commercial 550 cord can shrink 5-10% when wet. If you plan to wear it swimming or in the shower, soak your cord in hot water before weaving!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{{ end }}

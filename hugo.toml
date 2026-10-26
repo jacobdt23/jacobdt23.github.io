@@ -24,13 +24,21 @@ title = "Jacob Turner"
     pageRef = "/tech"
     weight = 4
   [[menus.main]]
+    name = "Calculator"
+    pageRef = "/calculator"
+    weight = 5
+  [[menus.main]]
+    name = "Gear"
+    pageRef = "/gear"
+    weight = 6
+  [[menus.main]]
     name = "About"
     pageRef = "/about"
-    weight = 5
+    weight = 7
   [[menus.main]]
     name = "Where to find me"
     pageRef = "/where-to-find-me"
-    weight = 6
+    weight = 8
 
 [taxonomies]
   tag = "tags"

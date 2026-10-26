@@ -1,16 +1,50 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-<div class="prose">{{ .Content }}</div>
-{{ with site.Taxonomies.tags }}
-<div class="chips" aria-label="Filter by tag">
-  {{ range .Alphabetical }}
-    <a class="chip" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} <span>{{ .Count }}</span></a>
-  {{ end }}
+<div class="videos-page-header">
+  <h1>{{ .Title }}</h1>
+  <p class="lead">Browse all tutorials, showcases, and tech guides. Search or filter below.</p>
 </div>
-{{ end }}
-<div class="grid">
+
+<!-- Interactive Search & Filter Controls -->
+<div class="search-filter-bar">
+  <div class="search-input-wrapper">
+    <span class="search-icon">🔍</span>
+    <input type="search" id="video-search-input" placeholder="Search by title, knot, tag, or topic..." aria-label="Search videos">
+    <button id="clear-search-btn" class="clear-btn" style="display:none;" aria-label="Clear search">✕</button>
+  </div>
+
+  <div class="filter-pills" id="channel-filters">
+    <button type="button" class="filter-btn active" data-filter="all">All Videos</button>
+    <button type="button" class="filter-btn" data-filter="paracord">Paracord</button>
+    <button type="button" class="filter-btn" data-filter="tech">Tech</button>
+    <button type="button" class="filter-btn" data-filter="tutorial">Tutorials</button>
+    <button type="button" class="filter-btn" data-filter="showcase">Showcases</button>
+  </div>
+</div>
+
+<div class="results-meta-bar">
+  <span id="results-count-text">Showing all videos</span>
+</div>
+
+<div class="grid" id="video-cards-grid">
   {{ range .Pages.ByDate.Reverse }}
     {{ partial "video-card.html" . }}
   {{ end }}
 </div>
+
+<div id="no-search-results" class="empty-results-box" style="display:none;">
+  <p class="empty-title">No videos found</p>
+  <p class="empty-sub">Try searching for something else like "cobra", "boxbuddy", or "bracelet".</p>
+  <button type="button" id="reset-search-btn" class="btn btn-ghost">Reset Filters</button>
+</div>
+
+{{ with site.Taxonomies.tags }}
+<div class="tag-cloud-section">
+  <h3>Browse by Tag</h3>
+  <div class="chips" aria-label="Filter by tag">
+    {{ range .Alphabetical }}
+      <a class="chip" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} <span>{{ .Count }}</span></a>
+    {{ end }}
+  </div>
+</div>
+{{ end }}
 {{ end }}

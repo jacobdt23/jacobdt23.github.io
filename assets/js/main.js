@@ -252,10 +252,9 @@
 
   if (tocSidebar && pageContent) {
     var headings = pageContent.querySelectorAll("h2, h3");
-    var tocLinks = [];
 
-    // If Hugo didn't populate markdown TableOfContents, build it dynamically
-    if (dynamicList && headings.length >= 2) {
+    // Populate TOC dynamically from headings on page
+    if (dynamicList && headings.length > 0) {
       headings.forEach(function (heading, idx) {
         if (!heading.id) {
           heading.id = "sec-" + (heading.textContent || "").trim().toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -264,20 +263,22 @@
         li.className = "toc-item toc-" + heading.tagName.toLowerCase();
         var a = document.createElement("a");
         a.href = "#" + heading.id;
-        a.textContent = heading.textContent.replace(/^[0-9.]+\s*/, ""); // Clean numbered prefixes
+        a.textContent = heading.textContent.replace(/^[0-9.]+\s*/, "").trim();
         li.appendChild(a);
         dynamicList.appendChild(li);
       });
     }
 
-    tocLinks = tocSidebar.querySelectorAll("nav a");
+    var tocLinks = tocSidebar.querySelectorAll("nav a");
 
-    // Hide TOC if there are fewer than 2 headings on this page
-    if (tocLinks.length < 2) {
+    // Only hide if the page has literally 0 headings
+    if (tocLinks.length === 0) {
       tocSidebar.style.display = "none";
       var contentGrid = tocSidebar.closest(".content-with-sidebar");
       if (contentGrid) contentGrid.classList.add("no-sidebar");
     } else {
+      tocSidebar.style.display = "block";
+
       // Smooth click-to-scroll
       tocLinks.forEach(function (link) {
         link.addEventListener("click", function (e) {
@@ -295,7 +296,7 @@
 
       // ScrollSpy: highlight active heading as user scrolls
       function updateScrollSpy() {
-        var scrollPos = window.scrollY + 120;
+        var scrollPos = window.scrollY + 140;
         var currentId = "";
 
         headings.forEach(function (heading) {

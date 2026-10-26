@@ -9,7 +9,7 @@
   --accent-text: #ffffff;
   --olive: #4f5d2f;
   --radius: 14px;
-  --max: 1100px;
+  --max: 1260px;
   --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
   --shadow-md: 0 8px 24px rgba(0,0,0,0.10);
   --shadow-lg: 0 16px 36px rgba(0,0,0,0.14);
@@ -351,7 +351,7 @@ pre code { background: none; padding: 0; }
   text-decoration: none;
 }
 
-@media (max-width: 960px) {
+@media (max-width: 768px) {
   .content-with-sidebar {
     grid-template-columns: 1fr;
   }

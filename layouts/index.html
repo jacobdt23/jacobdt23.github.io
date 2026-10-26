@@ -1,86 +1,91 @@
 {{ define "main" }}
-<section class="hero hero-enhanced">
-  <div class="hero-badge">
-    <span>🎬 YouTube Creator & Maker</span>
-  </div>
-  <h1>{{ site.Title }}</h1>
-  <p class="lead">{{ site.Params.description }}</p>
-  
-  <div class="hero-actions">
-    <a class="btn btn-primary" href="{{ "videos/" | relURL }}">Browse All Videos →</a>
-    <a class="btn btn-ghost" href="{{ "calculator/" | relURL }}">🪢 Paracord Calculator</a>
-    <a class="btn btn-ghost" href="{{ "gear/" | relURL }}">💻 My PC Rig & Gear</a>
-  </div>
+<div class="content-with-sidebar">
+  <div class="main-content-flow" id="page-content">
+    <section class="hero hero-enhanced">
+      <div class="hero-badge">
+        <span>🎬 YouTube Creator & Maker</span>
+      </div>
+      <h1>{{ site.Title }}</h1>
+      <p class="lead">{{ site.Params.description }}</p>
+      
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="{{ "videos/" | relURL }}">Browse All Videos →</a>
+        <a class="btn btn-ghost" href="{{ "calculator/" | relURL }}">🪢 Paracord Calculator</a>
+        <a class="btn btn-ghost" href="{{ "gear/" | relURL }}">💻 My PC Rig & Gear</a>
+      </div>
 
-  <!-- Key Statistics Counter -->
-  <div class="stats-row">
-    <div class="stat-box">
-      <span class="stat-number">{{ len (where site.RegularPages "Section" "videos") }}+</span>
-      <span class="stat-label">Video Tutorials</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-number">2</span>
-      <span class="stat-label">Active Channels</span>
-    </div>
-    <div class="stat-box">
-      <span class="stat-number">100%</span>
-      <span class="stat-label">Free DIY Knowledge</span>
-    </div>
-  </div>
-</section>
-
-<!-- Featured Tool Callout Banner -->
-<section class="featured-tool-banner">
-  <div class="tool-banner-content">
-    <div class="tool-banner-text">
-      <span class="badge badge-accent">Featured DIY Tool</span>
-      <h3>Paracord Bracelet Length Calculator</h3>
-      <p>Never run out of cord mid-weave again. Enter your wrist size and weave style to get exact measurements and tutorial links instantly.</p>
-    </div>
-    <div class="tool-banner-cta">
-      <a class="btn btn-primary" href="{{ "calculator/" | relURL }}">Launch Calculator →</a>
-    </div>
-  </div>
-</section>
-
-<section class="home-section">
-  <div class="section-header-flex">
-    <div>
-      <h2>Latest Videos</h2>
-      <p class="section-sub">Recently published tutorials, knot guides, and tech walkthroughs.</p>
-    </div>
-    <a class="view-all-link" href="{{ "videos/" | relURL }}">See all videos →</a>
-  </div>
-  <div class="grid">
-    {{ range first 6 (where site.RegularPages "Section" "videos").ByDate.Reverse }}
-      {{ partial "video-card.html" . }}
-    {{ else }}
-      <p>No videos yet.</p>
-    {{ end }}
-  </div>
-</section>
-
-<section class="home-section">
-  <div class="section-header-flex">
-    <div>
-      <h2>My YouTube Channels</h2>
-      <p class="section-sub">Subscribe on YouTube to stay up to date with new releases.</p>
-    </div>
-  </div>
-  <div class="grid">
-    {{ range hugo.Data.channels }}
-      <div class="card channel-card">
-        <div class="card-body">
-          <h3><a href="{{ .page | relURL }}">{{ .name }}</a></h3>
-          <p class="meta">{{ .handle }}{{ with .subscribers }} · {{ . }} subscribers{{ end }}</p>
-          <p>{{ .description }}</p>
-          <div class="card-actions">
-            <a class="btn" href="{{ .url }}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
-            <a class="btn btn-ghost" href="{{ .page | relURL }}">View Channel Videos</a>
-          </div>
+      <!-- Key Statistics Counter -->
+      <div class="stats-row">
+        <div class="stat-box">
+          <span class="stat-number">{{ len (where site.RegularPages "Section" "videos") }}+</span>
+          <span class="stat-label">Video Tutorials</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">2</span>
+          <span class="stat-label">Active Channels</span>
+        </div>
+        <div class="stat-box">
+          <span class="stat-number">100%</span>
+          <span class="stat-label">Free DIY Knowledge</span>
         </div>
       </div>
-    {{ end }}
+    </section>
+
+    <!-- Featured Tool Callout Banner -->
+    <section class="featured-tool-banner" id="paracord-calculator-tool">
+      <div class="tool-banner-content">
+        <div class="tool-banner-text">
+          <span class="badge badge-accent">Featured DIY Tool</span>
+          <h3>Paracord Bracelet Length Calculator</h3>
+          <p>Never run out of cord mid-weave again. Enter your wrist size and weave style to get exact measurements and tutorial links instantly.</p>
+        </div>
+        <div class="tool-banner-cta">
+          <a class="btn btn-primary" href="{{ "calculator/" | relURL }}">Launch Calculator →</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-section" id="latest-videos">
+      <div class="section-header-flex">
+        <div>
+          <h2>Latest Videos</h2>
+          <p class="section-sub">Recently published tutorials, knot guides, and tech walkthroughs.</p>
+        </div>
+        <a class="view-all-link" href="{{ "videos/" | relURL }}">See all videos →</a>
+      </div>
+      <div class="grid">
+        {{ range first 6 (where site.RegularPages "Section" "videos").ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ else }}
+          <p>No videos yet.</p>
+        {{ end }}
+      </div>
+    </section>
+
+    <section class="home-section" id="my-channels">
+      <div class="section-header-flex">
+        <div>
+          <h2>My YouTube Channels</h2>
+          <p class="section-sub">Subscribe on YouTube to stay up to date with new releases.</p>
+        </div>
+      </div>
+      <div class="grid">
+        {{ range hugo.Data.channels }}
+          <div class="card channel-card">
+            <div class="card-body">
+              <h3><a href="{{ .page | relURL }}">{{ .name }}</a></h3>
+              <p class="meta">{{ .handle }}{{ with .subscribers }} · {{ . }} subscribers{{ end }}</p>
+              <p>{{ .description }}</p>
+              <div class="card-actions">
+                <a class="btn" href="{{ .url }}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+                <a class="btn btn-ghost" href="{{ .page | relURL }}">View Channel Videos</a>
+              </div>
+            </div>
+          </div>
+        {{ end }}
+      </div>
+    </section>
   </div>
-</section>
+  {{ partial "toc.html" . }}
+</div>
 {{ end }}

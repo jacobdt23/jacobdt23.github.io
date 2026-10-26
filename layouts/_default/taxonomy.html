@@ -1,8 +1,19 @@
 {{ define "main" }}
-<h1>Tag: {{ .Title }}</h1>
-<div class="grid">
-  {{ range .Pages.ByDate.Reverse }}
-    {{ partial "video-card.html" . }}
-  {{ end }}
+<div class="content-with-sidebar">
+  <div class="main-content-flow" id="page-content">
+    <div id="tag-header">
+      <h1>Tag: #{{ .Title }}</h1>
+      <p class="lead">All tutorials and videos tagged with #{{ .Title }}.</p>
+    </div>
+    <section id="tagged-videos">
+      <h2>Videos ({{ len .Pages }})</h2>
+      <div class="grid">
+        {{ range .Pages.ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ end }}
+      </div>
+    </section>
+  </div>
+  {{ partial "toc.html" . }}
 </div>
 {{ end }}

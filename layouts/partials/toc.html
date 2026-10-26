@@ -14,6 +14,12 @@
           <li><a href="#search-and-filters">🔍 Search & Filters</a></li>
           <li><a href="#video-cards-grid">📹 Video Catalog</a></li>
           <li><a href="#browse-by-tag">🏷️ Browse by Tag</a></li>
+        {{ else if eq .RelPermalink "/paracord/" }}
+          <li><a href="#channel-overview">🪢 Channel Overview</a></li>
+          <li><a href="#channel-videos">📹 Paracord Videos</a></li>
+        {{ else if eq .RelPermalink "/tech/" }}
+          <li><a href="#channel-overview">💻 Channel Overview</a></li>
+          <li><a href="#channel-videos">📹 Tech Videos</a></li>
         {{ else if eq .RelPermalink "/calculator/" }}
           <li><a href="#measurements">📏 1. Measurements & Style</a></li>
           <li><a href="#results">✂️ 2. Recommended Cuts</a></li>
@@ -24,14 +30,21 @@
         {{ else if eq .RelPermalink "/about/" }}
           <li><a href="#jacobs-paracord-corner">🪢 Paracord Corner</a></li>
           <li><a href="#jacob-turner---tech">💻 Jacob Turner - Tech</a></li>
-        {{ else if eq .RelPermalink "/where-to-find-me/" }}
+        {{ else if or (eq .RelPermalink "/where-to-find-me/") (eq .RelPermalink "/contact/") }}
           <li><a href="#youtube-channels">📺 YouTube Channels</a></li>
           <li><a href="#comments--inquiries">💬 Comments & Inquiries</a></li>
         {{ else if and (eq .Section "videos") .IsPage }}
           <li><a href="#video-player">▶️ Watch Video</a></li>
           <li><a href="#video-description">📝 About This Video</a></li>
           <li><a href="#related-videos">🎯 Related Videos</a></li>
+        {{ else if eq .Data.Singular "tag" }}
+          <li><a href="#tag-header">🏷️ Tag Overview</a></li>
+          <li><a href="#tagged-videos">📹 Tagged Videos</a></li>
+        {{ else if eq .RelPermalink "/tags/" }}
+          <li><a href="#tags-header">🏷️ Tags Overview</a></li>
+          <li><a href="#tags-list">🪢 Topics & Knots</a></li>
         {{ else }}
+          <li><a href="#page-content">📄 Page Content</a></li>
           {{ with .TableOfContents }}
             {{ . }}
           {{ end }}

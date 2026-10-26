@@ -1,8 +1,19 @@
 {{ define "main" }}
-<h1>Tags</h1>
-<p class="tags">
-  {{ range .Data.Terms.Alphabetical }}
-    <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} ({{ .Count }})</a>
-  {{ end }}
-</p>
+<div class="content-with-sidebar">
+  <div class="main-content-flow" id="page-content">
+    <div id="tags-header">
+      <h1>All Tags</h1>
+      <p class="lead">Explore videos by topic, technique, or category.</p>
+    </div>
+    <section id="tags-list">
+      <h2>Topics & Knots</h2>
+      <p class="tags">
+        {{ range .Data.Terms.Alphabetical }}
+          <a class="tag" href="{{ .Page.RelPermalink }}">#{{ .Page.Title }} ({{ .Count }})</a>
+        {{ end }}
+      </p>
+    </section>
+  </div>
+  {{ partial "toc.html" . }}
+</div>
 {{ end }}

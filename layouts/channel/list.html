@@ -3,24 +3,29 @@
 {{ $ch := index (where hugo.Data.channels "name" $name) 0 }}
 {{ $vids := where (where site.RegularPages "Section" "videos") "Params.channel" $name }}
 
-<section class="hero">
-  <h1>{{ .Title }}</h1>
-  <div class="lead">{{ .Content }}</div>
-  <p class="meta">{{ $ch.handle }} · {{ len $vids }} video{{ if ne (len $vids) 1 }}s{{ end }}{{ with $ch.subscribers }} · {{ . }} subscribers{{ end }}</p>
-  <div class="hero-actions">
-    <a class="btn" href="{{ $ch.url }}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
-    <a class="btn btn-ghost" href="{{ $ch.url }}" target="_blank" rel="noopener">Visit channel</a>
-  </div>
-</section>
+<div class="content-with-sidebar">
+  <div class="main-content-flow" id="page-content">
+    <section class="hero" id="channel-overview">
+      <h1>{{ .Title }}</h1>
+      <div class="lead">{{ .Content }}</div>
+      <p class="meta">{{ $ch.handle }} · {{ len $vids }} video{{ if ne (len $vids) 1 }}s{{ end }}{{ with $ch.subscribers }} · {{ . }} subscribers{{ end }}</p>
+      <div class="hero-actions">
+        <a class="btn" href="{{ $ch.url }}?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube</a>
+        <a class="btn btn-ghost" href="{{ $ch.url }}" target="_blank" rel="noopener">Visit channel</a>
+      </div>
+    </section>
 
-<section>
-  <h2>Videos</h2>
-  <div class="grid">
-    {{ range $vids.ByDate.Reverse }}
-      {{ partial "video-card.html" . }}
-    {{ else }}
-      <p>No videos yet.</p>
-    {{ end }}
+    <section id="channel-videos">
+      <h2>Channel Videos</h2>
+      <div class="grid">
+        {{ range $vids.ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ else }}
+          <p>No videos yet.</p>
+        {{ end }}
+      </div>
+    </section>
   </div>
-</section>
+  {{ partial "toc.html" . }}
+</div>
 {{ end }}

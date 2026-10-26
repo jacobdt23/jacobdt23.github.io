@@ -1,9 +1,19 @@
 {{ define "main" }}
-<h1>{{ .Title }}</h1>
-<div class="prose">{{ .Content }}</div>
-<ul class="list">
-  {{ range .Pages.ByDate.Reverse }}
-    <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="meta">{{ .Date.Format "Jan 2, 2006" }}</span></li>
-  {{ end }}
-</ul>
+<div class="content-with-sidebar">
+  <div class="main-content-flow" id="page-content">
+    <div id="list-header">
+      <h1>{{ .Title }}</h1>
+      <div class="prose">{{ .Content }}</div>
+    </div>
+    <section id="list-items">
+      <h2>All Pages</h2>
+      <ul class="list">
+        {{ range .Pages.ByDate.Reverse }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a> <span class="meta">{{ .Date.Format "Jan 2, 2006" }}</span></li>
+        {{ end }}
+      </ul>
+    </section>
+  </div>
+  {{ partial "toc.html" . }}
+</div>
 {{ end }}

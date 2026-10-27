@@ -1,9 +1,13 @@
 {{ define "main" }}
+{{ $paracordVideos := where (where site.RegularPages "Section" "videos") "Params.channel" "Jacob's Paracord Corner" }}
+{{ $techVideos := where (where site.RegularPages "Section" "videos") "Params.channel" "Jacob Turner - Tech" }}
+{{ $otherVideos := where (where (where site.RegularPages "Section" "videos") "Params.channel" "ne" "Jacob's Paracord Corner") "Params.channel" "ne" "Jacob Turner - Tech" }}
+
 <div class="content-with-sidebar">
   <div class="main-content-flow" id="page-content">
     <div class="videos-page-header">
       <h1>{{ .Title }}</h1>
-      <p class="lead">Browse all tutorials, showcases, and tech guides. Search or filter below.</p>
+      <p class="lead">Browse all video tutorials and guides, separated by channel and topic.</p>
     </div>
 
     <!-- Interactive Search & Filter Controls -->
@@ -15,23 +19,78 @@
       </div>
 
       <div class="filter-pills" id="channel-filters">
-        <button type="button" class="filter-btn active" data-filter="all">All Videos</button>
-        <button type="button" class="filter-btn" data-filter="paracord">Paracord</button>
-        <button type="button" class="filter-btn" data-filter="tech">Tech</button>
+        <button type="button" class="filter-btn active" data-filter="all">All Videos ({{ len .Pages }})</button>
+        <button type="button" class="filter-btn" data-filter="paracord">🪢 Paracord ({{ len $paracordVideos }})</button>
+        <button type="button" class="filter-btn" data-filter="tech">💻 Linux & Tech ({{ len $techVideos }})</button>
         <button type="button" class="filter-btn" data-filter="tutorial">Tutorials</button>
         <button type="button" class="filter-btn" data-filter="showcase">Showcases</button>
       </div>
     </div>
 
-    <div class="results-meta-bar" id="video-grid-section">
-      <span id="results-count-text">Showing all videos</span>
+    <div class="results-meta-bar" id="video-results-meta">
+      <span id="results-count-text">Showing all {{ len .Pages }} videos across categories</span>
     </div>
 
-    <div class="grid" id="video-cards-grid">
-      {{ range .Pages.ByDate.Reverse }}
-        {{ partial "video-card.html" . }}
-      {{ end }}
-    </div>
+    <!-- 1. Paracord Videos Section -->
+    <section class="video-category-section" id="paracord-videos">
+      <div class="category-header">
+        <div class="category-title-wrap">
+          <span class="category-icon">🪢</span>
+          <div>
+            <h2>Paracord Tutorials & Showcases</h2>
+            <p class="category-desc">Bracelets, knot tutorials, cores, and weaves from <strong>Jacob's Paracord Corner</strong>.</p>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="https://www.youtube.com/@JacobTurner-p1f9c?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube ↗</a>
+      </div>
+      <div class="grid video-grid">
+        {{ range $paracordVideos.ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ else }}
+          <p class="empty-section-notice">No paracord videos yet.</p>
+        {{ end }}
+      </div>
+    </section>
+
+    <!-- 2. Linux & Tech Section -->
+    <section class="video-category-section" id="tech-videos">
+      <div class="category-header">
+        <div class="category-title-wrap">
+          <span class="category-icon">💻</span>
+          <div>
+            <h2>Linux & Tech Guides</h2>
+            <p class="category-desc">Fedora Linux, software setups, PC hardware, and tutorials from <strong>Jacob Turner - Tech</strong>.</p>
+          </div>
+        </div>
+        <a class="btn btn-ghost btn-sm" href="https://www.youtube.com/@jacobturner25?sub_confirmation=1" target="_blank" rel="noopener">Subscribe on YouTube ↗</a>
+      </div>
+      <div class="grid video-grid">
+        {{ range $techVideos.ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ else }}
+          <p class="empty-section-notice">No tech videos yet. Stay tuned!</p>
+        {{ end }}
+      </div>
+    </section>
+
+    {{ if gt (len $otherVideos) 0 }}
+    <!-- 3. Other Videos (if any) -->
+    <section class="video-category-section" id="other-videos">
+      <div class="category-header">
+        <div class="category-title-wrap">
+          <span class="category-icon">🎬</span>
+          <div>
+            <h2>Other Videos</h2>
+          </div>
+        </div>
+      </div>
+      <div class="grid video-grid">
+        {{ range $otherVideos.ByDate.Reverse }}
+          {{ partial "video-card.html" . }}
+        {{ end }}
+      </div>
+    </section>
+    {{ end }}
 
     <div id="no-search-results" class="empty-results-box" style="display:none;">
       <p class="empty-title">No videos found</p>

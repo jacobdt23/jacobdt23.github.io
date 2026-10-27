@@ -26,7 +26,8 @@
   var searchInput = document.getElementById("video-search-input");
   var clearSearchBtn = document.getElementById("clear-search-btn");
   var filterBtns = document.querySelectorAll("#channel-filters .filter-btn");
-  var videoCards = document.querySelectorAll("#video-cards-grid .video-card");
+  var videoCards = document.querySelectorAll(".video-card");
+  var categorySections = document.querySelectorAll(".video-category-section");
   var resultsCountText = document.getElementById("results-count-text");
   var noResultsBox = document.getElementById("no-search-results");
   var resetSearchBtn = document.getElementById("reset-search-btn");
@@ -70,9 +71,21 @@
         }
       });
 
+      // Show/hide category section containers if their cards are filtered out
+      if (categorySections.length > 0) {
+        categorySections.forEach(function (sec) {
+          var cardsInSec = sec.querySelectorAll(".video-card");
+          var hasVisible = false;
+          cardsInSec.forEach(function (c) {
+            if (c.style.display !== "none") hasVisible = true;
+          });
+          sec.style.display = hasVisible ? "" : "none";
+        });
+      }
+
       if (resultsCountText) {
         if (!query && activeFilter === "all") {
-          resultsCountText.textContent = "Showing all " + visibleCount + " videos";
+          resultsCountText.textContent = "Showing all " + visibleCount + " videos across categories";
         } else {
           resultsCountText.textContent = "Found " + visibleCount + " video" + (visibleCount === 1 ? "" : "s");
         }

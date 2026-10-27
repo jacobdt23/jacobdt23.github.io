@@ -7,6 +7,7 @@ Usage:
   scripts/add-videos.py --publish    # also git commit and push (deploys the site)
   scripts/add-videos.py --dry-run    # show what would be added, write nothing
 """
+import datetime
 import json
 import os
 import re
@@ -43,15 +44,23 @@ def walk(o, key, out):
 
 
 def channel_videos(ch):
-    page = get(f"https://www.youtube.com/{ch['handle']}/videos")
-    data = json.loads(re.search(r"var ytInitialData = (\{.*?\});</script>", page).group(1))
-    items = []
-    walk(data, "lockupViewModel", items)
-    return [
-        (r["contentId"], r["metadata"]["lockupMetadataViewModel"]["title"]["content"].strip(), ch)
-        for r in items
-        if r.get("contentType") == "LOCKUP_CONTENT_TYPE_VIDEO"
-    ]
+    try:
+        page = get(f"https://www.youtube.com/{ch['handle']}/videos")
+        m = re.search(r"var ytInitialData = (\{.*?\});</script>", page)
+        if not m:
+            print(f"Warning: could not find ytInitialData on {ch['handle']}'s page")
+            return []
+        data = json.loads(m.group(1))
+        items = []
+        walk(data, "lockupViewModel", items)
+        return [
+            (r["contentId"], r["metadata"]["lockupMetadataViewModel"]["title"]["content"].strip(), ch)
+            for r in items
+            if r.get("contentType") == "LOCKUP_CONTENT_TYPE_VIDEO"
+        ]
+    except Exception as e:
+        print(f"Warning: failed to fetch videos for {ch['handle']}: {e}")
+        return []
 
 
 def video_id(s):
@@ -70,8 +79,13 @@ def oembed(vid):
 
 
 def date_of(vid):
-    m = re.search(r'"uploadDate":"([^"]+)"', get(f"https://www.youtube.com/watch?v={vid}"))
-    return m.group(1)[:10] if m else None
+    try:
+        m = re.search(r'"uploadDate":"([^"]+)"', get(f"https://www.youtube.com/watch?v={vid}"))
+        if m:
+            return m.group(1)[:10]
+    except Exception as e:
+        print(f"Warning: could not fetch upload date for {vid}: {e}")
+    return datetime.date.today().isoformat()
 
 
 def slug(t):
@@ -98,7 +112,9 @@ def existing_ids():
     ids = set()
     for name in os.listdir(VIDEOS_DIR):
         if name.endswith(".md") and name != "_index.md":
-            m = re.search(r'^youtube_id:\s*"?([\w-]{11})"?', open(os.path.join(VIDEOS_DIR, name)).read(), re.M)
+            with open(os.path.join(VIDEOS_DIR, name), "r", encoding="utf-8", errors="ignore") as f:
+                content = f.read()
+            m = re.search(r'^youtube_id:\s*"?([\w-]{11})"?', content, re.M)
             if m:
                 ids.add(m.group(1))
     return ids
@@ -107,6 +123,7 @@ def existing_ids():
 def write_page(vid, title, ch, date, dry):
     path = os.path.join(VIDEOS_DIR, slug(title) + ".md")
     url = f"https://www.youtube.com/{ch['handle']}"
+    summary_text = f"{title} - a video from {ch['name']}."
     body = "\n".join([
         "---",
         f"title: {json.dumps(title)}",
@@ -114,7 +131,7 @@ def write_page(vid, title, ch, date, dry):
         f"youtube_id: {json.dumps(vid)}",
         f"channel: {json.dumps(ch['name'])}",
         f"tags: {json.dumps(tags_for(title, ch))}",
-        f"summary: {json.dumps(f'{title} - a video from {ch['name']}.')}",
+        f"summary: {json.dumps(summary_text)}",
         "---",
         "",
         f"Watch the video above, and [subscribe on YouTube]({url}?sub_confirmation=1) for more.",
@@ -122,7 +139,8 @@ def write_page(vid, title, ch, date, dry):
     ])
     print(("[dry-run] would add " if dry else "added ") + os.path.relpath(path, ROOT), f"({date}, {ch['name']})")
     if not dry:
-        open(path, "w").write(body)
+        with open(path, "w", encoding="utf-8") as f:
+            f.write(body)
 
 
 def main():

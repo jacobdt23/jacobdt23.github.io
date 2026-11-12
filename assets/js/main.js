@@ -56,7 +56,7 @@
         if (activeFilter === "paracord") {
           matchesFilter = channel.indexOf("paracord") !== -1 || tags.indexOf("paracord") !== -1;
         } else if (activeFilter === "tech") {
-          matchesFilter = channel.indexOf("tech") !== -1 || tags.indexOf("tech") !== -1 || tags.indexOf("fedora") !== -1;
+          matchesFilter = channel.indexOf("tech") !== -1 || tags.indexOf("tech") !== -1 || tags.indexOf("fedora") !== -1 || tags.indexOf("arch") !== -1 || tags.indexOf("linux") !== -1 || tags.indexOf("cachyos") !== -1;
         } else if (activeFilter === "tutorial") {
           matchesFilter = content.indexOf("tutorial") !== -1 || content.indexOf("how to") !== -1 || content.indexOf("knot") !== -1;
         } else if (activeFilter === "showcase") {

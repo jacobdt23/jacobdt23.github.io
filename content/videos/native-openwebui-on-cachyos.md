@@ -3,7 +3,7 @@ title: "native openwebui on cachyos"
 date: 2026-10-27
 youtube_id: "qUzDPzDujl0"
 channel: "Jacob Turner - Tech"
-tags: ["tech"]
+tags: ["tech", "cachyos", "arch linux", "ai", "linux"]
 summary: "native openwebui on cachyos - a video from Jacob Turner - Tech."
 ---
 

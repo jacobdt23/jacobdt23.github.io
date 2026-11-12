@@ -24,7 +24,11 @@ CHANNELS = [
     {"handle": "@jacobturner25", "name": "Jacob Turner - Tech", "tag": "tech"},
 ]
 
-HDR = {"User-Agent": "Mozilla/5.0", "Cookie": "CONSENT=YES+1", "Accept-Language": "en-US"}
+HDR = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64; rv:130.0) Gecko/20100101 Firefox/130.0",
+    "Cookie": "CONSENT=YES+1",
+    "Accept-Language": "en-US,en;q=0.9",
+}
 
 
 def get(url):
@@ -46,7 +50,7 @@ def walk(o, key, out):
 def channel_videos(ch):
     try:
         page = get(f"https://www.youtube.com/{ch['handle']}/videos")
-        m = re.search(r"var ytInitialData = (\{.*?\});</script>", page)
+        m = re.search(r"(?:var\s+)?ytInitialData\s*=\s*(\{.*?\});</script>", page)
         if not m:
             print(f"Warning: could not find ytInitialData on {ch['handle']}'s page")
             return []
@@ -98,9 +102,10 @@ def tags_for(title, ch):
              ("trilobite", "trilobite"), ("diamond", "diamond knot"), ("core", "cores"),
              ("showcase", "showcase"), ("cuff", "cuffs"), ("how to", "tutorial"),
              ("sanctified", "sanctified"), ("bracelet", "bracelets"),
-             ("fedora", "fedora"), ("linux", "linux"), ("windows", "windows"),
-             ("nixos", "nixos"), ("arch", "arch linux"), ("ryzen", "hardware"),
-             ("rtx", "hardware"), ("gpu", "hardware"), ("stream", "livestream")]
+             ("fedora", "fedora"), ("arch", "arch linux"), ("cachyos", "cachyos"),
+             ("linux", "linux"), ("windows", "windows"), ("nixos", "nixos"),
+             ("openwebui", "ai"), ("webui", "ai"),
+             ("ryzen", "hardware"), ("rtx", "hardware"), ("gpu", "hardware"), ("stream", "livestream")]
     out = [ch["tag"]]
     for k, tag in rules:
         if k in t and tag not in out:

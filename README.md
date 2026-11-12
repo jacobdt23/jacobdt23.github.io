@@ -4,9 +4,14 @@ A Hugo site with hand-written HTML templates, light/dark mode, and no theme depe
 
 ## Setup
 
-```
+```bash
+# On Arch Linux:
+sudo pacman -S hugo
+
+# On Fedora:
 sudo dnf install hugo
-cd ~/projects/youtube-site
+
+# Run local development server
 hugo server -D
 ```
 

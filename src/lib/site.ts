@@ -27,7 +27,7 @@ export function permalink(path: string): string {
   return new URL(path, SITE.url).toString();
 }
 
-/** All published videos, newest first (ties broken by file name, like Hugo). */
+/** All published videos, newest first (ties broken by file name). */
 export async function getVideos(): Promise<Video[]> {
   const all = await getCollection("videos", ({ data }) => !data.draft);
   return all.sort((a, b) => {
@@ -60,7 +60,7 @@ export const formatShort = (d: Date) => SHORT.format(d);
 /** "January 2, 2006" */
 export const formatLong = (d: Date) => LONG.format(d);
 
-/** Hugo-compatible `urlize` for tag slugs. */
+/** URL-safe slug for tags (lowercase, spaces to dashes). */
 export function urlize(s: string): string {
   return s
     .trim()
@@ -69,7 +69,7 @@ export function urlize(s: string): string {
     .replace(/[^\p{L}\p{N}\-_.~]/gu, "");
 }
 
-/** Hugo-style term title ("cobra knot" -> "Cobra Knot"). */
+/** Tag display title ("cobra knot" -> "Cobra Knot"). */
 export function termTitle(s: string): string {
   return s.replace(/(^|\s)(\S)/g, (_m, sp, ch) => sp + ch.toUpperCase());
 }

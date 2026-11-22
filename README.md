@@ -1,6 +1,6 @@
 # YouTube Channels Website
 
-An [Astro](https://astro.build) site with hand-written components, light/dark mode, and no theme dependency. (Ported from Hugo; URLs, markup and styling are unchanged.)
+An [Astro](https://astro.build) site with hand-written components, light/dark mode, and no theme dependency.
 
 ## Setup
 

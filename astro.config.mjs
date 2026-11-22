@@ -5,7 +5,7 @@ export default defineConfig({
   trailingSlash: "always",
   build: { format: "directory" },
   redirects: {
-    // Old alias kept from the Hugo site
+    // Old alias kept so existing /contact/ links still work
     "/contact/": "/where-to-find-me/",
   },
 });

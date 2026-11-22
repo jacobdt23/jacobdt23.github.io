@@ -1,0 +1,37 @@
+---
+import { MENU, SITE } from "../lib/site";
+
+const path = Astro.url.pathname;
+const isActive = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="site-header">
+  <div class="container header-inner">
+    <a class="brand" href="/">
+      <img class="brand-logo" src="/logo.svg" alt="" width="34" height="34" />
+      <span>{SITE.title}</span>
+    </a>
+    <nav class="nav" id="nav">
+      {
+        MENU.map((item) => (
+          <a href={item.href} class={isActive(item.href) ? "active" : ""}>
+            {item.name}
+          </a>
+        ))
+      }
+    </nav>
+    <button
+      id="theme-toggle"
+      class="icon-btn"
+      aria-label="Toggle dark mode"
+      title="Toggle dark mode">◐</button
+    >
+    <button
+      id="menu-toggle"
+      class="icon-btn menu-btn"
+      aria-label="Toggle menu"
+      aria-controls="nav">☰</button
+    >
+  </div>
+</header>

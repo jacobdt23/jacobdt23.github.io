@@ -1,0 +1,125 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Toc from "../components/Toc.astro";
+import VideoCard from "../components/VideoCard.astro";
+import { SITE, getVideos, getChannels } from "../lib/site";
+
+const videos = await getVideos();
+const channels = await getChannels();
+---
+
+<BaseLayout title="Home" isHome rss="/index.xml">
+  <div class="content-with-sidebar">
+    <div class="main-content-flow" id="page-content">
+      <section class="hero hero-enhanced">
+        <div class="hero-badge">
+          <span>🎬 YouTube Creator &amp; Maker</span>
+        </div>
+        <h1>{SITE.title}</h1>
+        <p class="lead">{SITE.description}</p>
+
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="/videos/">Browse All Videos →</a>
+          <a class="btn btn-ghost" href="/calculator/">🪢 Paracord Calculator</a>
+          <a class="btn btn-ghost" href="/gear/">💻 My PC Rig &amp; Gear</a>
+        </div>
+
+        <div class="stats-row">
+          <div class="stat-box">
+            <span class="stat-number">{videos.length}+</span>
+            <span class="stat-label">Video Tutorials</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">2</span>
+            <span class="stat-label">Active Channels</span>
+          </div>
+          <div class="stat-box">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Free DIY Knowledge</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="featured-tool-banner" id="paracord-calculator-tool">
+        <div class="tool-banner-content">
+          <div class="tool-banner-text">
+            <span class="badge badge-accent">Featured DIY Tool</span>
+            <h3>Paracord Bracelet Length Calculator</h3>
+            <p>
+              Never run out of cord mid-weave again. Enter your wrist size and
+              weave style to get exact measurements and tutorial links
+              instantly.
+            </p>
+          </div>
+          <div class="tool-banner-cta">
+            <a class="btn btn-primary" href="/calculator/">Launch Calculator →</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="home-section" id="latest-videos">
+        <div class="section-header-flex">
+          <div>
+            <h2>Latest Videos</h2>
+            <p class="section-sub">
+              Recently published tutorials, knot guides, and tech walkthroughs.
+            </p>
+          </div>
+          <a class="view-all-link" href="/videos/">See all videos →</a>
+        </div>
+        <div class="grid">
+          {
+            videos.length > 0 ? (
+              videos.slice(0, 6).map((v) => <VideoCard video={v} />)
+            ) : (
+              <p>No videos yet.</p>
+            )
+          }
+        </div>
+      </section>
+
+      <section class="home-section" id="my-channels">
+        <div class="section-header-flex">
+          <div>
+            <h2>My YouTube Channels</h2>
+            <p class="section-sub">
+              Subscribe on YouTube to stay up to date with new releases.
+            </p>
+          </div>
+        </div>
+        <div class="grid">
+          {
+            channels.map((c) => (
+              <div class="card channel-card">
+                <div class="card-body">
+                  <h3>
+                    <a href={`/${c.page}`}>{c.name}</a>
+                  </h3>
+                  <p class="meta">
+                    {c.handle}
+                    {c.subscribers && ` · ${c.subscribers} subscribers`}
+                  </p>
+                  <p>{c.description}</p>
+                  <div class="card-actions">
+                    <a
+                      class="btn"
+                      href={`${c.url}?sub_confirmation=1`}
+                      target="_blank"
+                      rel="noopener"
+                    >
+                      Subscribe on YouTube
+                    </a>
+                    <a class="btn btn-ghost" href={`/${c.page}`}>
+                      View Channel Videos
+                    </a>
+                  </div>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </section>
+    </div>
+    <Toc />
+  </div>
+</BaseLayout>

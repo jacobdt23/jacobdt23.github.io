@@ -1,29 +1,23 @@
 # YouTube Channels Website
 
-A Hugo site with hand-written HTML templates, light/dark mode, and no theme dependency.
+An [Astro](https://astro.build) site with hand-written components, light/dark mode, and no theme dependency. (Ported from Hugo; URLs, markup and styling are unchanged.)
 
 ## Setup
 
 ```bash
-# On Arch Linux:
-sudo pacman -S hugo
-
-# On Fedora:
-sudo dnf install hugo
-
-# Run local development server
-hugo server -D
+npm install
+npm run dev      # http://localhost:4321
 ```
-
-Open http://localhost:1313
 
 ## Edit
 
-- `hugo.toml`: site title, description, menu
-- `data/channels.yaml`: your channels
-- `content/videos/`: one markdown file per video (`hugo new videos/my-video.md`)
-- `layouts/`: HTML templates
-- `assets/css/style.css`: styling
+- `astro.config.mjs`: site URL and redirects
+- `src/lib/site.ts`: site title, description, menu, helpers
+- `src/data/channels.yaml`: your channels
+- `src/content/videos/`: one markdown file per video
+- `src/content/*.md`: About / Where to find me / channel intros
+- `src/pages/`, `src/components/`, `src/layouts/`: templates
+- `src/styles/style.css`, `src/scripts/main.js`: styling and behaviour
 
 ## Add new videos
 
@@ -39,7 +33,7 @@ Live site: https://jacobdt23.github.io/
 ## Build
 
 ```
-hugo --minify
+npm run build
 ```
 
-Output goes to `public/`.
+Output goes to `dist/`. The GitHub Actions workflow (`.github/workflows/astro.yaml`) builds and deploys it, and checks for new YouTube uploads every 6 hours.

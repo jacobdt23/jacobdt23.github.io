@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Toc from "../../components/Toc.astro";
+import VideoCard from "../../components/VideoCard.astro";
+import { getTags } from "../../lib/site";
+
+export async function getStaticPaths() {
+  const tags = await getTags();
+  return tags.map((tag) => ({ params: { tag: tag.slug }, props: { tag } }));
+}
+
+const { tag } = Astro.props;
+---
+
+<BaseLayout title={tag.title} rss={`/tags/${tag.slug}/index.xml`}>
+  <div class="content-with-sidebar">
+    <div class="main-content-flow" id="page-content">
+      <div id="tag-header">
+        <h1>Tag: #{tag.title}</h1>
+        <p class="lead">All tutorials and videos tagged with #{tag.title}.</p>
+      </div>
+      <section id="tagged-videos">
+        <h2>Videos ({tag.videos.length})</h2>
+        <div class="grid">
+          {tag.videos.map((v) => <VideoCard video={v} />)}
+        </div>
+      </section>
+    </div>
+    <Toc isTag />
+  </div>
+</BaseLayout>

@@ -1,0 +1,23 @@
+---
+import { SITE, getChannels } from "../lib/site";
+
+const channels = await getChannels();
+---
+
+<footer class="site-footer">
+  <div class="container footer-inner">
+    <p>
+      &copy; {new Date().getFullYear()}{" "}{SITE.author}. Built with <a href="https://astro.build">Astro</a>.
+    </p>
+    <p>
+      {
+        channels.map((c) => (
+          <a href={c.url} target="_blank" rel="noopener">
+            {c.name}
+          </a>
+        ))
+      }
+      <a href="/index.xml">RSS</a>
+    </p>
+  </div>
+</footer>

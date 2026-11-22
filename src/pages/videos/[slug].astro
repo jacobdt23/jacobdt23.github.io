@@ -1,0 +1,131 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Toc from "../../components/Toc.astro";
+import VideoCard from "../../components/VideoCard.astro";
+import { render } from "astro:content";
+import {
+  getVideos,
+  formatLong,
+  urlize,
+  permalink,
+  videoUrl,
+} from "../../lib/site";
+
+export async function getStaticPaths() {
+  const videos = await getVideos();
+  return videos.map((video) => ({
+    params: { slug: video.id },
+    props: { video, videos },
+  }));
+}
+
+const { video, videos } = Astro.props;
+const { title, youtube_id, channel, tags, summary, date } = video.data;
+const { Content } = await render(video);
+
+let related = videos.filter((v) => v.id !== video.id);
+if (channel) {
+  const same = related.filter((v) => v.data.channel === channel);
+  if (same.length > 0) related = same;
+}
+related = related.slice(0, 3);
+
+const pageUrl = permalink(videoUrl(video));
+const ld = youtube_id
+  ? {
+      "@context": "https://schema.org",
+      "@type": "VideoObject",
+      name: title,
+      description: summary ?? title,
+      thumbnailUrl: [
+        `https://i.ytimg.com/vi/${youtube_id}/maxresdefault.jpg`,
+        `https://i.ytimg.com/vi/${youtube_id}/hqdefault.jpg`,
+      ],
+      uploadDate: date.toISOString().replace(".000Z", "Z"),
+      embedUrl: `https://www.youtube.com/embed/${youtube_id}`,
+      contentUrl: `https://www.youtube.com/watch?v=${youtube_id}`,
+    }
+  : null;
+---
+
+<BaseLayout title={title} summary={summary} ogType="article">
+  <div class="content-with-sidebar">
+    <article class="prose video-single-article" id="page-content">
+      <div class="video-meta-top">
+        {channel && <span class="channel-pill">{channel}</span>}
+        <span class="publish-date">Published on {formatLong(date)}</span>
+      </div>
+
+      <h1 class="video-page-title">{title}</h1>
+
+      {
+        youtube_id && (
+          <>
+            <div class="video-embed-container" id="video-player">
+              <div class="video-embed">
+                <iframe
+                  src={`https://www.youtube-nocookie.com/embed/${youtube_id}`}
+                  title={title}
+                  loading="lazy"
+                  allowfullscreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                />
+              </div>
+            </div>
+
+            <div class="video-action-bar">
+              <a
+                class="btn btn-primary"
+                href={`https://www.youtube.com/watch?v=${youtube_id}`}
+                target="_blank"
+                rel="noopener"
+              >
+                <span>▶ Watch on YouTube</span>
+              </a>
+              <button
+                type="button"
+                class="btn btn-ghost"
+                id="copy-video-link-btn"
+                data-url={pageUrl}
+              >
+                <span>📋 Share / Copy Link</span>
+              </button>
+              <button type="button" class="btn btn-ghost" id="theater-toggle-btn">
+                <span>⛶ Theater Mode</span>
+              </button>
+            </div>
+          </>
+        )
+      }
+
+      <div class="video-body-content" id="video-description">
+        <h2>About This Video</h2>
+        <Content />
+      </div>
+
+      {
+        tags.length > 0 && (
+          <div class="tags-section">
+            <span class="tags-label">Tags:</span>
+            {tags.map((t) => (
+              <a class="tag" href={`/tags/${urlize(t)}/`}>
+                #{t}
+              </a>
+            ))}
+          </div>
+        )
+      }
+
+      <section class="related-videos-section" id="related-videos">
+        <h2>More Videos You Might Like</h2>
+        <div class="grid">
+          {related.map((v) => <VideoCard video={v} />)}
+        </div>
+      </section>
+    </article>
+
+    <Toc />
+  </div>
+
+  {ld && <script type="application/ld+json" set:html={JSON.stringify(ld)} />}
+</BaseLayout>

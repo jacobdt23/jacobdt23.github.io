@@ -1,0 +1,130 @@
+---
+interface Heading {
+  depth: number;
+  slug: string;
+  text: string;
+}
+interface Props {
+  /** Markdown headings, used only for pages without a hand-written TOC. */
+  headings?: Heading[];
+  /** Set for tag pages ("/tags/<tag>/"). */
+  isTag?: boolean;
+}
+const { headings = [], isTag = false } = Astro.props;
+const path = Astro.url.pathname;
+
+type Item = [anchor: string, icon: string, text: string];
+const channelItems = (label: string, icon: string): Item[] => [
+  ["channel-overview", icon, "Channel Overview"],
+  ["channel-videos", "📹", label],
+];
+
+let items: Item[] | null = null;
+if (path === "/") {
+  items = [
+    ["paracord-calculator-tool", "🪢", "Paracord Calculator"],
+    ["latest-videos", "🎬", "Latest Videos"],
+    ["my-channels", "📺", "YouTube Channels"],
+  ];
+} else if (path === "/videos/") {
+  items = [
+    ["search-and-filters", "🔍", "Search & Filters"],
+    ["paracord-videos", "🪢", "Paracord Videos"],
+    ["tech-videos", "💻", "Linux & Tech"],
+    ["browse-by-tag", "🏷️", "Browse by Tag"],
+  ];
+} else if (path === "/paracord/") {
+  items = channelItems("Paracord Videos", "🪢");
+} else if (path === "/tech/") {
+  items = channelItems("Tech Videos", "💻");
+} else if (path === "/calculator/") {
+  items = [
+    ["measurements", "📏", "Measurements & Style"],
+    ["results", "✂️", "Recommended Cuts"],
+    ["crafting-tips", "💡", "Pro Crafting Tips"],
+  ];
+} else if (path === "/gear/") {
+  items = [
+    ["pc-rig", "💻", "PC Rig Specs (Arch Linux)"],
+    ["paracord-workshop", "🪢", "Paracord Workshop"],
+  ];
+} else if (path === "/about/") {
+  items = [
+    ["jacobs-paracord-corner", "🪢", "Paracord Corner"],
+    ["jacob-turner---tech", "💻", "Jacob Turner - Tech"],
+  ];
+} else if (path === "/where-to-find-me/" || path === "/contact/") {
+  items = [
+    ["youtube-channels", "📺", "YouTube Channels"],
+    ["comments--inquiries", "💬", "Comments & Inquiries"],
+  ];
+} else if (path.startsWith("/videos/")) {
+  items = [
+    ["video-player", "▶️", "Watch Video"],
+    ["video-description", "📝", "About This Video"],
+    ["related-videos", "🎯", "Related Videos"],
+  ];
+} else if (isTag) {
+  items = [
+    ["tag-header", "🏷️", "Tag Overview"],
+    ["tagged-videos", "📹", "Tagged Videos"],
+  ];
+} else if (path === "/tags/") {
+  items = [
+    ["tags-header", "🏷️", "Tags Overview"],
+    ["tags-list", "🪢", "Topics & Knots"],
+  ];
+}
+---
+
+<aside class="toc-sidebar" id="toc-sidebar" aria-label="Table of Contents">
+  <div class="toc-sticky">
+    <div class="toc-header">
+      <div class="toc-title-row">
+        <span class="toc-pulse-dot" aria-hidden="true"></span>
+        <span class="toc-heading-title">Table of Contents</span>
+      </div>
+      <div class="toc-progress-track" title="Page scroll progress">
+        <div class="toc-progress-bar" id="toc-progress-bar" style="width: 0%;"></div>
+      </div>
+    </div>
+
+    <nav class="toc-nav" id="toc-nav">
+      <ul class="toc-list">
+        {
+          items ? (
+            items.map(([anchor, icon, text]) => (
+              <li>
+                <a href={`#${anchor}`}>
+                  <span class="toc-bullet">{icon}</span>{" "}
+                  <span class="toc-text">{text}</span>
+                </a>
+              </li>
+            ))
+          ) : (
+            <>
+              <li>
+                <a href="#page-content">
+                  <span class="toc-bullet">📄</span>{" "}
+                  <span class="toc-text">Page Content</span>
+                </a>
+              </li>
+              {headings.map((h) => (
+                <li>
+                  <a href={`#${h.slug}`}>{h.text}</a>
+                </li>
+              ))}
+            </>
+          )
+        }
+      </ul>
+      <ul id="dynamic-toc-list" class="dynamic-toc-list"></ul>
+    </nav>
+
+    <div class="toc-footer">
+      <a href="#top" class="back-to-top-btn" id="back-to-top" title="Scroll back to top">
+        <span>↑ Back to top</span>
+      </a>
+    </div>
+  </div>
+</aside>

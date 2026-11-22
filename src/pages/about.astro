@@ -1,0 +1,18 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Toc from "../components/Toc.astro";
+import { getEntry, render } from "astro:content";
+
+const entry = (await getEntry("pages", "about"))!;
+const { Content } = await render(entry);
+---
+
+<BaseLayout title={entry.data.title} ogType="article">
+  <div class="content-with-sidebar">
+    <article class="prose main-article" id="page-content">
+      <h1>{entry.data.title}</h1>
+      <Content />
+    </article>
+    <Toc />
+  </div>
+</BaseLayout>

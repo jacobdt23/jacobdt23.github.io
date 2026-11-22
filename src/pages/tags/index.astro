@@ -1,0 +1,31 @@
+---
+import BaseLayout from "../../layouts/BaseLayout.astro";
+import Toc from "../../components/Toc.astro";
+import { getTags } from "../../lib/site";
+
+const tags = await getTags();
+---
+
+<BaseLayout title="Tags" rss="/tags/index.xml">
+  <div class="content-with-sidebar">
+    <div class="main-content-flow" id="page-content">
+      <div id="tags-header">
+        <h1>All Tags</h1>
+        <p class="lead">Explore videos by topic, technique, or category.</p>
+      </div>
+      <section id="tags-list">
+        <h2>Topics &amp; Knots</h2>
+        <p class="tags">
+          {
+            tags.map((t) => (
+              <a class="tag" href={`/tags/${t.slug}/`}>
+                #{t.title} ({t.videos.length})
+              </a>
+            ))
+          }
+        </p>
+      </section>
+    </div>
+    <Toc />
+  </div>
+</BaseLayout>

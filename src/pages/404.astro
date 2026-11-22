@@ -1,0 +1,15 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { SITE } from "../lib/site";
+---
+
+<BaseLayout
+  title="404 Page not found"
+  canonical={`${SITE.url}/404.html`}
+>
+  <section class="hero">
+    <h1>404</h1>
+    <p class="lead">That page doesn't exist.</p>
+    <a class="btn" href="/">Go home</a>
+  </section>
+</BaseLayout>

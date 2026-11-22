@@ -1,0 +1,53 @@
+---
+import { formatShort, videoUrl, type Video } from "../lib/site";
+
+interface Props {
+  video: Video;
+}
+const { video } = Astro.props;
+const { title, youtube_id, channel, tags, summary, date } = video.data;
+const url = videoUrl(video);
+---
+
+<article
+  class="card video-card"
+  data-title={title.toLowerCase()}
+  data-channel={(channel ?? "").toLowerCase()}
+  data-tags={tags.join(" ").toLowerCase()}
+  data-summary={(summary ?? "").toLowerCase()}
+>
+  <a class="card-thumb-link" href={url}>
+    {
+      youtube_id ? (
+        <div class="thumb-wrapper">
+          <img
+            class="thumb"
+            loading="lazy"
+            src={`https://i.ytimg.com/vi/${youtube_id}/hqdefault.jpg`}
+            alt={`Thumbnail for ${title}`}
+          />
+          <span class="play-overlay">▶</span>
+        </div>
+      ) : (
+        <div class="thumb thumb-empty">No thumbnail</div>
+      )
+    }
+  </a>
+  <div class="card-body">
+    <div class="card-header-meta">
+      <span class="channel-pill">{channel || "Video"}</span>
+      <span class="card-date">{formatShort(date)}</span>
+    </div>
+    <h3 class="card-title"><a href={url}>{title}</a></h3>
+    {summary && <p class="card-summary">{summary}</p>}
+    {
+      tags.length > 0 && (
+        <div class="card-tags">
+          {tags.slice(0, 3).map((t) => (
+            <span class="mini-tag">#{t}</span>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</article>

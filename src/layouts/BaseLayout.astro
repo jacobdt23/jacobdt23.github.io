@@ -1,0 +1,78 @@
+---
+import "../styles/style.css";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import Subscribe from "../components/Subscribe.astro";
+import { SITE } from "../lib/site";
+
+interface Props {
+  /** Page title (Hugo's .Title). */
+  title: string;
+  /** Page summary used for meta/og description. */
+  summary?: string;
+  isHome?: boolean;
+  /** "article" for single pages, "website" for lists. */
+  ogType?: "article" | "website";
+  /** Override canonical URL (defaults to the current URL). */
+  canonical?: string;
+  /** Path of the RSS feed for this page, if it has one (e.g. "/videos/index.xml"). */
+  rss?: string;
+}
+
+const {
+  title,
+  summary,
+  isHome = false,
+  ogType = "website",
+  canonical = Astro.url.href,
+  rss,
+} = Astro.props;
+
+const description = summary ?? SITE.description;
+const fullTitle = isHome ? SITE.title : `${title} · ${SITE.title}`;
+const rssHref = rss ? new URL(rss, SITE.url).toString() : undefined;
+---
+
+<!doctype html>
+<html lang={SITE.locale}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content={ogType} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    {
+      rssHref && (
+        <link
+          rel="alternate"
+          type="application/rss+xml"
+          href={rssHref}
+          title={SITE.title}
+        />
+      )
+    }
+    <script is:inline>
+      (function () {
+        var t = localStorage.getItem("theme");
+        if (!t)
+          t = window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
+        document.documentElement.setAttribute("data-theme", t);
+      })();
+    </script>
+  </head>
+  <body>
+    <Header />
+    <main class="container">
+      <slot />
+      <Subscribe />
+    </main>
+    <Footer />
+    <script src="../scripts/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,62 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Toc from "./Toc.astro";
+import VideoCard from "./VideoCard.astro";
+import { getEntry, render } from "astro:content";
+import { getVideos, getChannels } from "../lib/site";
+
+interface Props {
+  /** Entry id in the `pages` collection ("paracord" or "tech"). */
+  page: string;
+  rss: string;
+}
+const { page, rss } = Astro.props;
+
+const entry = await getEntry("pages", page);
+if (!entry) throw new Error(`Missing page: ${page}`);
+const { Content } = await render(entry);
+const name = entry.data.channel_name;
+const ch = (await getChannels()).find((c) => c.name === name)!;
+const vids = (await getVideos()).filter((v) => v.data.channel === name);
+---
+
+<BaseLayout title={entry.data.title} summary={entry.data.summary} rss={rss}>
+  <div class="content-with-sidebar">
+    <div class="main-content-flow" id="page-content">
+      <section class="hero" id="channel-overview">
+        <h1>{entry.data.title}</h1>
+        <div class="lead"><Content /></div>
+        <p class="meta">
+          {ch.handle} · {vids.length} video{vids.length !== 1 ? "s" : ""}{
+            ch.subscribers && ` · ${ch.subscribers} subscribers`
+          }
+        </p>
+        <div class="hero-actions">
+          <a
+            class="btn"
+            href={`${ch.url}?sub_confirmation=1`}
+            target="_blank"
+            rel="noopener">Subscribe on YouTube</a
+          >
+          <a class="btn btn-ghost" href={ch.url} target="_blank" rel="noopener"
+            >Visit channel</a
+          >
+        </div>
+      </section>
+
+      <section id="channel-videos">
+        <h2>Channel Videos</h2>
+        <div class="grid">
+          {
+            vids.length > 0 ? (
+              vids.map((v) => <VideoCard video={v} />)
+            ) : (
+              <p>No videos yet.</p>
+            )
+          }
+        </div>
+      </section>
+    </div>
+    <Toc />
+  </div>
+</BaseLayout>

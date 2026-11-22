@@ -1,0 +1,24 @@
+---
+import { getChannels } from "../lib/site";
+
+const channels = await getChannels();
+---
+
+<section class="subscribe">
+  <h2>Enjoy the videos?</h2>
+  <p>New videos are posted regularly. Subscribe so you don't miss one.</p>
+  <div class="hero-actions">
+    {
+      channels.map((c) => (
+        <a
+          class="btn"
+          href={`${c.url}?sub_confirmation=1`}
+          target="_blank"
+          rel="noopener"
+        >
+          {c.name}
+        </a>
+      ))
+    }
+  </div>
+</section>

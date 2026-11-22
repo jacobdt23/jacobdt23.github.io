@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Add new YouTube videos to the site as Hugo content pages.
+"""Add new YouTube videos to the site as Astro content pages.
 
 Usage:
   scripts/add-videos.py              # find videos on all channels that have no page yet
@@ -16,9 +16,9 @@ import sys
 import urllib.request
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-VIDEOS_DIR = os.path.join(ROOT, "content", "videos")
+VIDEOS_DIR = os.path.join(ROOT, "src", "content", "videos")
 
-# Keep in sync with data/channels.yaml. `tag` is added to every video from that channel.
+# Keep in sync with src/data/channels.yaml. `tag` is added to every video from that channel.
 CHANNELS = [
     {"handle": "@JacobTurner-p1f9c", "name": "Jacob's Paracord Corner", "tag": "paracord"},
     {"handle": "@jacobturner25", "name": "Jacob Turner - Tech", "tag": "tech"},

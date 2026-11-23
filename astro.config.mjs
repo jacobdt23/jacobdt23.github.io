@@ -1,7 +1,7 @@
 import { defineConfig } from "astro/config";
 
 export default defineConfig({
-  site: "https://jacobdt23.github.io",
+  site: "https://jacobdt23.pages.dev",
   trailingSlash: "always",
   build: { format: "directory" },
   redirects: {

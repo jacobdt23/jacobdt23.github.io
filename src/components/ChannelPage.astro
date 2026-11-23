@@ -2,6 +2,7 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Toc from "./Toc.astro";
 import VideoCard from "./VideoCard.astro";
+import IsoDownload from "./IsoDownload.astro";
 import { getEntry, render } from "astro:content";
 import { getVideos, getChannels } from "../lib/site";
 
@@ -56,6 +57,8 @@ const vids = (await getVideos()).filter((v) => v.data.channel === name);
           }
         </div>
       </section>
+
+      {page === "tech" && <IsoDownload />}
     </div>
     <Toc />
   </div>

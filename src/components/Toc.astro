@@ -36,7 +36,7 @@ if (path === "/") {
 } else if (path === "/paracord/") {
   items = channelItems("Paracord Videos", "🪢");
 } else if (path === "/tech/") {
-  items = channelItems("Tech Videos", "💻");
+  items = [...channelItems("Tech Videos", "💻"), ["iso-download", "💿", "ISO Download"]];
 } else if (path === "/calculator/") {
   items = [
     ["measurements", "📏", "Measurements & Style"],

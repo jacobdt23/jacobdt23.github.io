@@ -1,0 +1,49 @@
+---
+// Edit these values to publish your ISO. GitHub can't host files over 100 MB,
+// so point `url` at a GitHub Release, SourceForge, Google Drive, etc.
+const iso = {
+  name: "My Custom ISO",
+  description: "My own Linux ISO. Boot it from a USB drive to try it live or install it.",
+  version: "",
+  size: "",
+  sha256: "",
+  url: "", // leave empty until the download is ready
+};
+const ready = iso.url !== "";
+---
+
+<section id="iso-download">
+  <h2>ISO Download</h2>
+  <div class="iso-card">
+    <h3>{iso.name}</h3>
+    <p>{iso.description}</p>
+    {
+      (iso.version || iso.size) && (
+        <p class="meta">
+          {[iso.version && `Version ${iso.version}`, iso.size].filter(Boolean).join(" · ")}
+        </p>
+      )
+    }
+    {iso.sha256 && <p class="meta">SHA-256: <code>{iso.sha256}</code></p>}
+    {
+      ready ? (
+        <a class="btn" href={iso.url} target="_blank" rel="noopener">Download ISO</a>
+      ) : (
+        <span class="btn btn-ghost" aria-disabled="true">Download coming soon</span>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .iso-card {
+    background: var(--bg-alt);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .iso-card h3 { margin-top: 0; }
+  .iso-card code { word-break: break-all; }
+  .iso-card [aria-disabled="true"] { cursor: not-allowed; opacity: .7; }
+</style>

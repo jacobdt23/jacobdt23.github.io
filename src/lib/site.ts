@@ -5,7 +5,7 @@ export const SITE = {
   description:
     "Paracord tutorials and tech videos: Linux, Windows and PC hardware. Two YouTube channels, one place.",
   author: "Jacob Turner",
-  url: "https://jacobdt23.pages.dev",
+  url: "https://jacobdt23-github-io.turnejac01.workers.dev",
   locale: "en-us",
 };
 
